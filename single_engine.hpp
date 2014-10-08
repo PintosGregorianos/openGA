@@ -5,7 +5,6 @@
 #include "rand.hpp"
 #include "crossover.hpp"
 #include "mutation.hpp"
-#include "goals.hpp"
 #include <cmath>
 
 class single_engine : public engine {
@@ -20,6 +19,6 @@ class single_engine : public engine {
     void makeCrossover(unsigned short int n_cross);
     void makeMutation(unsigned short int n_mutat);
     void updateIndividuals(void);
-    void manageGoals(void);
+    //size_t randIndividual
 
 };

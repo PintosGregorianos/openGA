@@ -14,6 +14,16 @@ void single_engine::stepEngine(void) {
     n_cross    = round((float)p_population->params.population_size*p_simulation->params.cross_prob);
     n_mutat    = round((float)p_population->params.population_size*p_simulation->params.mutat_prob);
 
+    // Cálcula fitness pra cada indivíduo
+    if (fitness_callback != nullptr) {
+        for (size_t i = 0; i < p_population->params.population_size; i++) {
+            p_population->individuals[i]->fitness = fitness_callback(*p_population->individuals[i]->my_dna);
+        }
+    }
+    else {
+        PRINT_ERROR("Engine fitness callback not defined!");
+    }
+
     // ordena individuos em ordem crescente de fitness
     sort(p_population->individuals.begin(), p_population->individuals.end(), individual_comp());
 
@@ -29,12 +39,6 @@ void single_engine::stepEngine(void) {
 
     // atualiza indivíduos com novos DNAs
     updateIndividuals();
-
-    // evolui populacao
-    p_population->gen_counter++;
-
-    // verifica goals. se necessario calcula divergenceia
-    manageGoals();
 
     // atualiza parâmetros conforme fatores de escala
     p_simulation->params.cross_prob    *= p_simulation->params.cross_scale;
@@ -120,26 +124,5 @@ void single_engine::makeMutation(unsigned short int n_mutat) {
 void single_engine::updateIndividuals(void) {
     for (size_t i = 0; i < p_population->params.population_size; i++) {
         *p_population->individuals[i]->my_dna = dna_buffer[i];
-    }
-}
-
-void single_engine::manageGoals(void) {
-    /// metrica talvez nao muito boa, seta o goal quando a divergencia de cada dimensao e menor que a do goal
-    if ((int)(p_simulation->params.goal & goals::divergence )) {
-        p_population->calcDivergence();
-        const float *diverg = p_population->getDivergences();
-        bool yep = true;
-        for (size_t i = 0; i < p_population->params.dna_dimensions; i++) {
-            if (diverg[i] > p_simulation->params.diverg_goal) {
-                yep = false;
-                break;
-            }
-        }
-        if (yep) p_simulation->achieved_goals = p_simulation->achieved_goals | goals::divergence;
-    }
-
-    if ((int)(p_simulation->params.goal & goals::generation)) {
-        if (p_population->gen_counter >= p_simulation->params.gen_goal)
-            p_simulation->achieved_goals = p_simulation->achieved_goals | goals::generation;
     }
 }
