@@ -33,7 +33,7 @@ class population {
 
         void increase_gen(void);
 
-        void populate(void);
+        void deleteIndividuals(void) const;
 
 	public:
 		population();
@@ -61,5 +61,7 @@ class population {
 		void         calcDivergence(void);
 		float        getDivergence (unsigned short int chrom_id) const;
 		const float *getDivergences(void) const;
+
+		void populate(void);
 
 };

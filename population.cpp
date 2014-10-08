@@ -9,21 +9,23 @@ dna population::getIndividualDNA(unsigned short int individual_id) const {
 }
 
 population::~population() {
-    for (std::size_t i = 0; i < params.population_size; i++) {
-        delete individuals[i];
-    }
+    deleteIndividuals();
+}
+
+population::population() {
+    gen_counter = 1;
 }
 
 void population::populate(void) {
+    if (!individuals.empty())
+        deleteIndividuals();
+
     individuals.resize(params.population_size);
 
+    if (diverg != nullptr)
+        delete diverg;
+
     diverg = new float[params.dna_dimensions];
-
-    for (std::size_t i = 0; i < params.population_size; i++) {
-        individuals[i]   = new individual(params.dna_dimensions);
-    }
-
-    gen_counter = 1;
 }
 
 // calcula distancia RMS dos cromossomos
@@ -43,6 +45,11 @@ void population::calcDivergence(void) {
     for (i = 0; i < params.dna_dimensions; i++) diverg[k] = sqrt(diverg[k]/((params.population_size*(params.population_size-1))));
 }
 
+void population::deleteIndividuals(void) const {
+    for (std::size_t i = 0; i < params.population_size; i++)
+        delete individuals[i];
+}
+
 float population::getDivergence(unsigned short int chrom_id) const {
     return diverg[chrom_id];
 }
@@ -56,10 +63,20 @@ void population::increase_gen(void) {
 }
 
 void population::setPopulationSize(unsigned short int size) {
-    params.population_size = size;
+    if (size > 0)
+        params.population_size = size;
+    else {
+        params.population_size = 1;
+        PRINT_ERROR("Zero or negative population size. Seted to 1 individual.");
+    }
 }
 void population::setDNADimension  (unsigned short int dimension) {
-    params.dna_dimensions = dimension;
+    if (dimension > 0)
+        params.dna_dimensions = dimension;
+    else {
+        params.dna_dimensions = 1;
+        PRINT_ERROR("Zero or negative DNA dimension. Seted to 1 dimension.");
+    }
 }
 
 unsigned short int population::getPopulationSize(void) const {

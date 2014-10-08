@@ -14,9 +14,11 @@ class dna {
     public:
         dna(unsigned short int n_chroms);
 
-    	unsigned int       getChromossome      (unsigned short int chrom_index) const;
+        unsigned int       getChromossome      (unsigned short int chrom_index) const;
         float              getChromossomeAsReal(unsigned short int chrom_index) const;
-    	const unsigned int *getChromossomes    (void) const;
+        const unsigned int *getChromossomes    (void) const;
+
+
 
     friend class population;
     friend class crossover;
