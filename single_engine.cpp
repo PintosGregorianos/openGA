@@ -157,3 +157,9 @@ void single_engine::manageGoals(void) {
 void single_engine::setFitnessCallback(float(*callback)(dna &)) {
     fitness_callback = callback;
 }
+
+void single_engine::startEngine(population &the_population,simulation &the_simulation) {
+    bindEngine(&the_population,&the_simulation);
+
+    p_population->populate();
+}
