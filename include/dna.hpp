@@ -12,7 +12,7 @@ class dna {
         chrom_container crossover(dna &other);
 
     public:
-        dna(unsigned short int n_chroms);
+        void create(unsigned short int n_chroms);
 
         unsigned int       getChromossome      (unsigned short int chrom_index) const;
         float              getChromossomeAsReal(unsigned short int chrom_index) const;

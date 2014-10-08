@@ -1,7 +1,7 @@
 #include "dna.hpp"
 #include "rand.hpp"
 
-dna::dna(unsigned short int n_chroms) {
+void dna::create(unsigned short int n_chroms) {
     chromossomes.resize(n_chroms);
     for (std::size_t i = 0; i < chromossomes.size(); i++) chromossomes[i] = uint_rand();
 }
