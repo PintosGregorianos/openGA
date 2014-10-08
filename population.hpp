@@ -39,6 +39,12 @@ class population {
 		population();
 		~population();
 
+		void setPopulationSize(unsigned short int size);
+		void setDNADimension  (unsigned short int dimension);
+
+		unsigned short int getPopulationSize(void) const;
+		unsigned short int getDNADimension  (void) const;
+
 		void updatePopulationFitness(float const *fitness_vector);
 		void updateindividualFitness(unsigned short int individual_id, float fitnenss);
 		void updateAllFitness       (float fitness);
@@ -52,8 +58,8 @@ class population {
 
 		unsigned short int getActualGeneration(void) const;
 
-		void        calcDivergence(void);
-		float       getDivergence (unsigned short int chrom_id) const;
+		void         calcDivergence(void);
+		float        getDivergence (unsigned short int chrom_id) const;
 		const float *getDivergences(void) const;
 
 };

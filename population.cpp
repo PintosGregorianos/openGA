@@ -54,3 +54,17 @@ const float *population::getDivergences(void) const {
 void population::increase_gen(void) {
     gen_counter++;
 }
+
+void population::setPopulationSize(unsigned short int size) {
+    params.population_size = size;
+}
+void population::setDNADimension  (unsigned short int dimension) {
+    params.dna_dimensions = dimension;
+}
+
+unsigned short int population::getPopulationSize(void) const {
+    return params.population_size;
+}
+unsigned short int population::getDNADimension  (void) const {
+    return params.dna_dimensions;
+}
