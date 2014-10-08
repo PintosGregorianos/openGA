@@ -42,7 +42,6 @@
 		<Unit filename="engine.cpp" />
 		<Unit filename="engine.hpp" />
 		<Unit filename="engine_parameters.hpp" />
-		<Unit filename="entity.cpp" />
 		<Unit filename="error.hpp" />
 		<Unit filename="goals.hpp" />
 		<Unit filename="individual.cpp" />
