@@ -12,6 +12,8 @@ class single_engine : public engine {
     std::vector<bool> dna_checked;
     std::vector<float>acc_fitness;
 
+    float (*fitness_callback)(dna &);
+
     void startEngine(void);
     void stepEngine(void);
     void makeSelection(unsigned short int selection_start_point);
@@ -19,6 +21,8 @@ class single_engine : public engine {
     void makeCrossover(unsigned short int n_cross);
     void makeMutation(unsigned short int n_mutat);
     void updateIndividuals(void);
-    //size_t randIndividual
+    void manageGoals(void);
 
+    public:
+    void setFitnessCallback(float(*callback)(dna &));
 };

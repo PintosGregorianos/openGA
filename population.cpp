@@ -50,3 +50,7 @@ float population::getDivergence(unsigned short int chrom_id) const {
 const float *population::getDivergences(void) const {
     return diverg;
 }
+
+void population::increase_gen(void) {
+    gen_counter++;
+}
