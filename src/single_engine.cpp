@@ -136,7 +136,7 @@ void single_engine::updateIndividuals(void) {
 
 void single_engine::manageGoals(void) {
     /// metrica talvez nao muito boa, seta o goal quando a divergencia de cada dimensao e menor que a do goal
-    if ((int)(p_simulation->params.goal & goals::divergence )) {
+    if (p_simulation->params.goal & goals::divergence) {
         p_population->calcDivergence();
         const float *diverg = p_population->getDivergences();
         bool yep = true;
@@ -146,16 +146,16 @@ void single_engine::manageGoals(void) {
                 break;
             }
         }
-        if (yep) p_simulation->achieved_goals = p_simulation->achieved_goals | goals::divergence;
+        if (yep) p_simulation->achieved_goals |= goals::divergence;
     }
 
-    if ((int)(p_simulation->params.goal & goals::generation)) {
+    if (p_simulation->params.goal & goals::generation) {
         if (p_population->gen_counter >= p_simulation->params.gen_goal)
-            p_simulation->achieved_goals = p_simulation->achieved_goals | goals::generation;
+            p_simulation->achieved_goals |= goals::generation;
     }
 }
 
-void single_engine::setFitnessCallback(float(*callback)(dna &)) {
+void single_engine::setFitnessCallback(float(*callback)(const dna &)) {
     fitness_callback = callback;
 }
 

@@ -108,3 +108,112 @@
 	"simulation.hpp"
 	"single_engine.hpp"
 
+1412821787 source:c:\users\gregory\desktop\openga\crossover.cpp
+	"crossover.hpp"
+
+1412821787 c:\users\gregory\desktop\openga\include\crossover.hpp
+	"dna.hpp"
+	"error.hpp"
+	"rand.hpp"
+
+1412821956 c:\users\gregory\desktop\openga\include\dna.hpp
+	<vector>
+
+1412821787 c:\users\gregory\desktop\openga\include\error.hpp
+	<iostream>
+
+1412821787 c:\users\gregory\desktop\openga\include\rand.hpp
+	<random>
+	<chrono>
+
+1412821956 source:c:\users\gregory\desktop\openga\dna.cpp
+	"dna.hpp"
+	"rand.hpp"
+
+1412821787 source:c:\users\gregory\desktop\openga\engine.cpp
+	"engine.hpp"
+
+1412821787 c:\users\gregory\desktop\openga\include\engine.hpp
+	"population.hpp"
+	"simulation.hpp"
+	"engine_parameters.hpp"
+
+1412829093 c:\users\gregory\desktop\openga\include\population.hpp
+	"error.hpp"
+	"individual.hpp"
+	"individual_comp.hpp"
+	"dna.hpp"
+	"rand.hpp"
+	"goals.hpp"
+	"population_parameters.hpp"
+	<vector>
+	<algorithm>
+	<cmath>
+
+1412821956 c:\users\gregory\desktop\openga\include\individual.hpp
+	"dna.hpp"
+
+1412821787 c:\users\gregory\desktop\openga\include\individual_comp.hpp
+	"individual.hpp"
+
+1412831407 c:\users\gregory\desktop\openga\include\goals.hpp
+
+1412821787 c:\users\gregory\desktop\openga\include\population_parameters.hpp
+
+1412831087 c:\users\gregory\desktop\openga\include\simulation.hpp
+	"simulation_parameters.hpp"
+	"error.hpp"
+
+1412830430 c:\users\gregory\desktop\openga\include\simulation_parameters.hpp
+	"goals.hpp"
+	"crossover_type.hpp"
+
+1412821787 c:\users\gregory\desktop\openga\include\crossover_type.hpp
+
+1412821787 c:\users\gregory\desktop\openga\include\engine_parameters.hpp
+
+1412825110 source:c:\users\gregory\desktop\openga\individual.cpp
+	"individual.hpp"
+
+1412831723 source:c:\users\gregory\desktop\openga\individual_comp.cpp
+	"individual_comp.hpp"
+
+1412821787 source:c:\users\gregory\desktop\openga\mutation.cpp
+	"mutation.hpp"
+
+1412821787 c:\users\gregory\desktop\openga\include\mutation.hpp
+	"dna.hpp"
+	"rand.hpp"
+
+1412832778 source:c:\users\gregory\desktop\openga\population.cpp
+	"population.hpp"
+
+1412821787 source:c:\users\gregory\desktop\openga\rand.cpp
+	"rand.hpp"
+
+1412831073 source:c:\users\gregory\desktop\openga\simulation.cpp
+	"simulation.hpp"
+
+1412831775 source:c:\users\gregory\desktop\openga\single_engine.cpp
+	"single_engine.hpp"
+
+1412828928 c:\users\gregory\desktop\openga\include\single_engine.hpp
+	"engine.hpp"
+	"dna.hpp"
+	"rand.hpp"
+	"crossover.hpp"
+	"mutation.hpp"
+	<cmath>
+
+1412832606 source:c:\users\gregory\desktop\openga\projects\first_general_test\ga_test\ga_test.cpp
+	"openGA.hpp"
+	<cmath>
+	<iostream>
+	<string>
+	<fstream>
+
+1412821956 c:\users\gregory\desktop\openga\include\openga.hpp
+	"population.hpp"
+	"simulation.hpp"
+	"single_engine.hpp"
+

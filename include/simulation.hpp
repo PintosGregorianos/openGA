@@ -9,29 +9,31 @@ class simulation {
     protected:
         simulation_parameters params;
 
-        goals achieved_goals;
+        unsigned short int achieved_goals;
 
     public:
-        void setcrossoverProbability (const float probability);
+        simulation();
+
+        void setCrossoverProbability (const float probability);
 		void setMutationProbability  (const float probability);
 		void setElitismRatio         (const float ration);
-		void setcrossoverScaleFactor (float scale_factor);
+		void setCrossoverScaleFactor (float scale_factor);
 		void setMutationScaleFactor  (float scale_factor);
 		void setElitismScaleFactor   (float scale_factor);
 		void setCrossoverType        (crossover_type type);
 
-		float getcrossoverProbability  (void) const;
+		float getCrossoverProbability  (void) const;
 		float getMutationProbability   (void) const;
 		float getElitismRatio          (void) const;
-		float getcrossoverScaleFactor  (void) const;
+		float getCrossoverScaleFactor  (void) const;
 		float getMutationScaleFactor   (void) const;
 		float getElitismScaleFactor    (void) const;
 		crossover_type getCrossoverType(void) const;
 
-		void setGoals(goals goal);
+		void setGoals(unsigned short int goal);
 
-		goals getGoals        (void) const;
-		goals getAchievedGoals(void) const;
+		unsigned short int getGoals        (void) const;
+		unsigned short int getAchievedGoals(void) const;
 
 		void setGoalDivergence (float divergence);
 		void setGoalGeneration (unsigned short int generation);
