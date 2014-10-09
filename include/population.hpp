@@ -53,6 +53,8 @@ class population {
 		float              getindividualFitness(unsigned short int individual_id) const;
 		std::vector<float> getPopulationFitness(void) const;
 
+		unsigned short int getGeneration(void) const;
+
 		const dna& acessIndividualDNA (unsigned short int individual_id) const;
 		dna getIndividualDNA          (unsigned short int individual_id) const;
 

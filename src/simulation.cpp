@@ -1,11 +1,19 @@
 #include "simulation.hpp"
 
-void simulation::setcrossoverProbability(const float probability) {
+simulation::simulation() {
+    params.cross_scale   = 1.f;
+    params.mutat_scale   = 1.f;
+    params.elitism_scale = 1.f;
+
+    achieved_goals = goals::none;
+}
+
+void simulation::setCrossoverProbability(const float probability) {
 	if (probability >= 0.f and probability <= 1.f)
 		params.cross_prob = probability;
 	else {
 		params.cross_prob = 0.f;
-		PRINT_ERROR("setcrossoverProbability()\n\tNegative or higher than 1.f probability.\n");
+		PRINT_ERROR("setCrossoverProbability()\n\tNegative or higher than 1.f probability.\n");
 	}
 }
 
@@ -27,7 +35,7 @@ void simulation::setElitismRatio(const float ratio) {
 	}
 }
 
-void simulation::setcrossoverScaleFactor(float scale_factor) {
+void simulation::setCrossoverScaleFactor(float scale_factor) {
 	if (scale_factor > 0.f) {
 		params.cross_scale = scale_factor;
 	}
@@ -79,7 +87,7 @@ void simulation::setCrossoverType(crossover_type type) {
     params.cross_type = type;
 }
 
-float simulation::getcrossoverProbability(void) const {
+float simulation::getCrossoverProbability(void) const {
 	return params.cross_prob;
 }
 
@@ -91,11 +99,11 @@ float simulation::getElitismRatio(void) const {
 	return params.elitism_ratio;
 }
 
-void simulation::setGoals(goals goal) {
+void simulation::setGoals(unsigned short int goal) {
 	params.goal = goal;
 }
 
-goals simulation::getGoals(void) const {
+unsigned short int simulation::getGoals(void) const {
 	return params.goal;
 }
 
@@ -107,7 +115,7 @@ unsigned short int simulation::getGoalGeneration(void) const {
 	return params.gen_goal;
 }
 
-float simulation::getcrossoverScaleFactor(void) const {
+float simulation::getCrossoverScaleFactor(void) const {
 	return params.cross_scale;
 }
 
@@ -121,4 +129,8 @@ float simulation::getElitismScaleFactor(void) const {
 
 crossover_type simulation::getCrossoverType(void) const {
     return params.cross_type;
+}
+
+unsigned short int simulation::getAchievedGoals() const {
+    return achieved_goals;
 }

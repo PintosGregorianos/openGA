@@ -12,7 +12,7 @@ class single_engine : public engine {
     std::vector<bool> dna_checked;
     std::vector<float>acc_fitness;
 
-    float (*fitness_callback)(dna &);
+    float (*fitness_callback)(const dna &);
 
     void startEngine      (void);
     void makeSelection    (unsigned short int selection_start_point);
@@ -23,7 +23,7 @@ class single_engine : public engine {
     void manageGoals      (void);
 
     public:
-        void setFitnessCallback(float(*callback)(dna &));
+        void setFitnessCallback(float(*callback)(const dna &));
 
         void startEngine(population &the_population,simulation &the_simulation);
         void stepEngine(void);

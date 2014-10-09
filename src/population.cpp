@@ -22,6 +22,7 @@ void population::populate(void) {
     deleteIndividuals();
     individuals.resize(params.population_size);
     for (size_t i = 0; i < params.population_size; i++) {
+        individuals[i] = new individual;
         individuals[i]->my_dna->create(params.dna_dimensions);
     }
 
@@ -45,11 +46,11 @@ void population::calcDivergence(void) {
             }
         }
     }
-    for (i = 0; i < params.dna_dimensions; i++) diverg[k] = sqrt(diverg[k]/((params.population_size*(params.population_size-1))));
+    for (i = 0; i < params.dna_dimensions; i++) diverg[i] = sqrt(diverg[i]/(float)((params.population_size*(params.population_size-1))));
 }
 
 void population::deleteIndividuals(void) const {
-    if (!individuals.empty()) return;
+    if (individuals.empty()) return;
     for (std::size_t i = 0; i < params.population_size; i++)
         delete individuals[i];
 }
@@ -86,6 +87,11 @@ void population::setDNADimension  (unsigned short int dimension) {
 unsigned short int population::getPopulationSize(void) const {
     return params.population_size;
 }
+
 unsigned short int population::getDNADimension  (void) const {
     return params.dna_dimensions;
+}
+
+unsigned short int population::getGeneration(void) const {
+    return gen_counter;
 }

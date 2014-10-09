@@ -5,5 +5,6 @@ individual::individual() : fitness(0.f) {
 }
 
 individual::~individual() {
-    delete my_dna;
+    if (my_dna)
+        delete my_dna;
 }

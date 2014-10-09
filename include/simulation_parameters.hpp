@@ -8,6 +8,6 @@ struct simulation_parameters {
     float cross_scale, mutat_scale, elitism_scale;
     float diverg_goal;
     unsigned short int gen_goal;
-    goals goal;
+    unsigned short int goal;
     crossover_type cross_type;
 };

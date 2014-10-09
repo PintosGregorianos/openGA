@@ -11,10 +11,12 @@ Created by Diego Pinto and Gregory Gusberti @ 2014/2
 #include <string>
 #include <fstream>
 
-///espaco aleatorio de uma dimensao
+///Espaço aleatorio de uma dimensao
 //----------------------------------------------
+// salva aquivo do matlab pra plotat
+// #define SPACE_FILE
 #ifdef SPACE_FILE
-    std::string space_file_name = "rand_space.dat";
+    const std::string space_file_name = "rand_space.dat";
 #endif
 
 const std::size_t space_size = 4096;
@@ -23,7 +25,7 @@ float space[space_size];
 void generate_space(void);
 //----------------------------------------------
 
-float evaluateFitness(dna &the_dna);
+float evaluateFitness(const dna &the_dna);
 
 int main() {
     std::cout << std::endl << std::endl;
@@ -45,11 +47,14 @@ int main() {
     //------------------------------------------------
     simulation my_sim;
 
-    my_sim.setcrossoverProbability(0.6);
+    my_sim.setCrossoverProbability(0.8);
     my_sim.setCrossoverType       (crossover_type::onePoint);
-    my_sim.setMutationProbability (0.025);
-    my_sim.setElitismRatio        (0.2);
-    my_sim.setGoalGeneration      (16);
+    my_sim.setMutationProbability (0.05);
+    my_sim.setElitismRatio        (0.0);
+    my_sim.setCrossoverScaleFactor(1.f);
+    my_sim.setMutationScaleFactor (1.f);
+    my_sim.setElitismScaleFactor  (1.f);
+    my_sim.setGoalGeneration      (66);
     my_sim.setGoals               (goals::generation);
     // -----------------------------------------------
 
@@ -60,6 +65,19 @@ int main() {
 
     my_eng.startEngine            (my_pop,my_sim);
     my_eng.setFitnessCallback     (evaluateFitness);
+
+
+    while(my_sim.getAchievedGoals() != goals::generation) {
+        my_eng.stepEngine();
+    }
+
+    ///mostra resultado
+    std::cout << "Geracao final: " << my_pop.getGeneration() << std::endl;
+    my_pop.calcDivergence();
+    std::cout << "Divergencia: " << my_pop.getDivergence(0) << std::endl;
+    for (size_t i = 0; i < my_pop.getPopulationSize(); i++)
+        std::cout << "\tIndividuo " << i << ": " << evaluateFitness(my_pop.acessIndividualDNA(i)) << std::endl;
+
 
     return 0;
 }
@@ -82,20 +100,20 @@ void generate_space(void) {
     }
 
     #ifdef SPACE_FILE
-    std::ofstream file(space_file_name.c_str());
-    if (!file.is_open())
-        return;
+        std::ofstream file(space_file_name.c_str());
+        if (!file.is_open())
+            return;
     #endif
 
     for (size_t i = 0; i < space_size; i++) {
         space[i] -= g_minimum;
         #ifdef SPACE_FILE
-        file << space[i] << std::endl;
+            file << space[i] << std::endl;
         #endif
     }
 
     #ifdef SPACE_FILE
-    file.close();
+        file.close();
     #endif
 
     g_maximum -= g_minimum;
@@ -103,7 +121,7 @@ void generate_space(void) {
     std::cout << "Maximo global por bruta forca: " << g_maximum << std::endl;
 }
 
-float evaluateFitness(dna &the_dna) {
+float evaluateFitness(const dna &the_dna) {
     return space[(std::size_t)round(the_dna.getChromossomeAsReal(0)*(space_size-1))];
 }
 
