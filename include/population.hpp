@@ -58,8 +58,6 @@ class population {
 		const dna& acessIndividualDNA (unsigned short int individual_id) const;
 		dna getIndividualDNA          (unsigned short int individual_id) const;
 
-		unsigned short int getActualGeneration(void) const;
-
 		void         calcDivergence(void);
 		float        getDivergence (unsigned short int chrom_id) const;
 		const float *getDivergences(void) const;

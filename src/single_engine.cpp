@@ -8,6 +8,10 @@ void single_engine::startEngine(void) {
 }
 
 void single_engine::stepEngine(void) {
+    #ifdef DEBUG_MODE
+        std::cout << "\nWORK FOR GENERATION " << p_population->getGeneration() << std::endl;
+    #endif // DEBUG_MODE
+
     for (auto &&x : dna_checked) x = false;
 
     unsigned short int n_elitists, n_cross, n_mutat;
@@ -27,6 +31,16 @@ void single_engine::stepEngine(void) {
 
     // ordena individuos em ordem crescente de fitness
     sort(p_population->individuals.begin(), p_population->individuals.end(), individual_comp());
+
+    ///SORT DEBUG ----------------------------------------------------------------------
+    #ifdef DEBUG_MODE
+        std::cout << "\nSorted fitness" << std::endl;
+        for (size_t i = 0; i < p_population->params.population_size; i++) {
+            std::cout << "\tIndividual " << i << ": " << p_population->individuals[i]->fitness << std::endl;
+        }
+        std::cout << std::endl;
+    #endif
+    ///---------------------------------------------------------------------------------
 
     // seleção natural
     makeElitism  (n_elitists);
@@ -56,22 +70,47 @@ void single_engine::stepEngine(void) {
 // cuidado, método erótico e sensual.
 // para o correto crossover não use camisinha
 void single_engine::makeCrossover(unsigned short int n_cross) {
-    if (n_cross == 0) return;
+    if (!n_cross) return;
+    #ifdef DEBUG_MODE
+        std::cout << std::endl << "Crossovers:" << std::endl;
+    #endif // DEBUG_MODE
     size_t n = 0;
+    size_t id1,id2;
     switch(p_simulation->params.cross_type) {
         case(crossover_type::onePoint):
-            while(n++ < n_cross)
-                crossover::typeA(dna_buffer[uint_rand()%p_population->params.population_size],dna_buffer[uint_rand()%p_population->params.population_size]);
+            while(n++ < n_cross) {
+                id1 = uint_rand()%p_population->params.population_size;
+                id2 = uint_rand()%p_population->params.population_size;
+                crossover::typeA(dna_buffer[id1],dna_buffer[id2]);
+                #ifdef DEBUG_MODE
+                    std::cout << "\tIndividual " << id1 << " <-> Individual " << id2 << std::endl;
+                #endif // DEBUG_MODE
+            }
             break;
         case(crossover_type::twoPoint):
-            while(n++ < n_cross)
-                crossover::typeB(dna_buffer[uint_rand()%p_population->params.population_size],dna_buffer[uint_rand()%p_population->params.population_size]);
+            while(n++ < n_cross) {
+                id1 = uint_rand()%p_population->params.population_size;
+                id2 = uint_rand()%p_population->params.population_size;
+                crossover::typeB(dna_buffer[id1],dna_buffer[id2]);
+                #ifdef DEBUG_MODE
+                    std::cout << "\tIndividual " << id1 << " <-> Individual " << id2 << std::endl;
+                #endif // DEBUG_MODE
+            }
             break;
         case(crossover_type::cutSplice):
-            while(n++ < n_cross)
-                crossover::typeC(dna_buffer[uint_rand()%p_population->params.population_size],dna_buffer[uint_rand()%p_population->params.population_size]);
+            while(n++ < n_cross) {
+                id1 = uint_rand()%p_population->params.population_size;
+                id2 = uint_rand()%p_population->params.population_size;
+                crossover::typeC(dna_buffer[id1],dna_buffer[id2]);
+                #ifdef DEBUG_MODE
+                    std::cout << "\tIndividual " << id1 << " <-> Individual " << id2 << std::endl;
+                #endif // DEBUG_MODE
+            }
             break;
     }
+    #ifdef DEBUG_MODE
+        std::cout << std::endl;
+    #endif // DEBUG_MODE
 }
 
 void single_engine::makeSelection(unsigned short int n_elitists) {
@@ -89,26 +128,48 @@ void single_engine::makeSelection(unsigned short int n_elitists) {
     float choise, fitness_sum;
     size_t selector;
     fitness_sum = acc_fitness[nmax+1];
+    #ifdef DEBUG_MODE
+        std::cout << "\nIndividuals fitness from natural selection: \n";
+    #endif // DEBUG_MODE
     while (n <= nmax) {
         choise   = real_rand()*fitness_sum;
         selector = nmax+1;
         while(choise <= acc_fitness[selector]) selector--;
+        #ifdef DEBUG_MODE
+            std::cout << "\t Individual " << n << ": " << individuals[selector]->fitness << std::endl;
+        #endif // DEBUG_MODE
         dna_buffer[n++] = *individuals[selector]->my_dna;
     }
+    #ifdef DEBUG_MODE
+        std::cout << std::endl;
+    #endif // DEBUG_MODE
 }
 
 // Otimizar contadores n e n2 fiz do jeito idiota
 void single_engine::makeElitism(unsigned short int n_elitists) {
+    if (!n_elitists) return;
     size_t n  = 0;
     size_t n2 = p_population->params.population_size-1;
+    #ifdef DEBUG_MODE
+        std::cout << "Selected elitists's fitness: " << std::endl;
+    #endif // DEBUG_MODE
     while(n++ < n_elitists) {
         dna_buffer[n2] = *p_population->individuals[n2]->my_dna;
+        #ifdef DEBUG_MODE
+            std::cout << "\tIndividual " << n2 << ": " << p_population->individuals[n2]->fitness << std::endl;
+        #endif // DEBUG_MODE
         n2--;
     }
+    #ifdef DEBUG_MODE
+        std::cout << std::endl;
+    #endif // DEBUG_MODE
 }
 
 // Apenas implementado o tipo A por enquanto
 void single_engine::makeMutation(unsigned short int n_mutat) {
+    #ifdef DEBUG_MODE
+        std::cout << std::endl;
+    #endif // DEBUG_MODE
     size_t n = 0;
     size_t selected;
     while(n++ < n_mutat) {
@@ -118,7 +179,13 @@ void single_engine::makeMutation(unsigned short int n_mutat) {
         while(dna_checked[selected]);
         dna_checked[selected] = true;
         mutation::typeA(dna_buffer[selected]);
+        #ifdef DEBUG_MODE
+            std::cout << "Mutate individual " << selected << std::endl;
+        #endif // DEBUG_MODE
     }
+    #ifdef DEBUG_MODE
+        std::cout << std::endl;
+    #endif // DEBUG_MODE
 }
 
 // Vai ser assim pra sempre? ou usar double buffering?
