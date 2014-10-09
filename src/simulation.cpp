@@ -75,11 +75,11 @@ void simulation::setGoalDivergence(float divergence) {
 }
 
 void simulation::setGoalGeneration(unsigned short int generation) {
-	if (generation > 0)
+	if (generation > 1)
 		params.gen_goal = generation;
 	else {
-		params.gen_goal = 0;
-		PRINT_ERROR("setGoalGeneration()\n\tNegative or zero target generation.\n");
+		params.gen_goal = 2;
+		PRINT_ERROR("setGoalGeneration()\n\tGoal generation has to be higher than 1.\n");
 	}
 }
 

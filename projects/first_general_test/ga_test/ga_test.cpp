@@ -12,7 +12,7 @@ Created by Diego Pinto and Gregory Gusberti @ 2014/2
 #include <fstream>
 
 ///Espaço aleatorio de uma dimensao
-//----------------------------------------------
+//------------------------------------------------------
 // salva aquivo do matlab pra plotat
 // #define SPACE_FILE
 #ifdef SPACE_FILE
@@ -21,14 +21,17 @@ Created by Diego Pinto and Gregory Gusberti @ 2014/2
 
 const std::size_t space_size = 4096;
 float space[space_size];
+float global_maximum;
 
 void generate_space(void);
-//----------------------------------------------
+//------------------------------------------------------
 
 float evaluateFitness(const dna &the_dna);
 
 int main() {
-    std::cout << std::endl << std::endl;
+    seed_from_time();
+
+    std::cout << std::endl;
 
     ///gera espaco aleatorio
     generate_space();
@@ -47,14 +50,16 @@ int main() {
     //------------------------------------------------
     simulation my_sim;
 
-    my_sim.setCrossoverProbability(0.8);
+    my_sim.setCrossoverProbability(0.65f);
+    my_sim.setMutationProbability (0.08f);
+    my_sim.setElitismRatio        (0.1f);
     my_sim.setCrossoverType       (crossover_type::onePoint);
-    my_sim.setMutationProbability (0.05);
-    my_sim.setElitismRatio        (0.0);
+
     my_sim.setCrossoverScaleFactor(1.f);
     my_sim.setMutationScaleFactor (1.f);
     my_sim.setElitismScaleFactor  (1.f);
-    my_sim.setGoalGeneration      (66);
+
+    my_sim.setGoalGeneration      (25);
     my_sim.setGoals               (goals::generation);
     // -----------------------------------------------
 
@@ -63,20 +68,21 @@ int main() {
     //------------------------------------------------
     single_engine my_eng;
 
-    my_eng.startEngine            (my_pop,my_sim);
     my_eng.setFitnessCallback     (evaluateFitness);
-
+    my_eng.startEngine            (my_pop,my_sim);
 
     while(my_sim.getAchievedGoals() != goals::generation) {
         my_eng.stepEngine();
     }
 
     ///mostra resultado
-    std::cout << "Geracao final: " << my_pop.getGeneration() << std::endl;
+    std::cout << "\nRESULTADOS\n";
+    std::cout << "\tMaximo global por bruta forca: " << global_maximum << std::endl;
+    std::cout << "\tGeracao final: " << my_pop.getGeneration() << std::endl;
     my_pop.calcDivergence();
-    std::cout << "Divergencia: " << my_pop.getDivergence(0) << std::endl;
+    std::cout << "\tDivergencia: " << my_pop.getDivergence(0) << std::endl;
     for (size_t i = 0; i < my_pop.getPopulationSize(); i++)
-        std::cout << "\tIndividuo " << i << ": " << evaluateFitness(my_pop.acessIndividualDNA(i)) << std::endl;
+        std::cout << "\t\tIndividuo " << i << ": " << evaluateFitness(my_pop.acessIndividualDNA(i)) << std::endl;
 
 
     return 0;
@@ -98,27 +104,21 @@ void generate_space(void) {
         if (space[i] < g_minimum)
             g_minimum = space[i];
     }
-
     #ifdef SPACE_FILE
         std::ofstream file(space_file_name.c_str());
         if (!file.is_open())
             return;
     #endif
-
     for (size_t i = 0; i < space_size; i++) {
         space[i] -= g_minimum;
         #ifdef SPACE_FILE
             file << space[i] << std::endl;
         #endif
     }
-
     #ifdef SPACE_FILE
         file.close();
     #endif
-
-    g_maximum -= g_minimum;
-
-    std::cout << "Maximo global por bruta forca: " << g_maximum << std::endl;
+    global_maximum = g_maximum - g_minimum;
 }
 
 float evaluateFitness(const dna &the_dna) {
