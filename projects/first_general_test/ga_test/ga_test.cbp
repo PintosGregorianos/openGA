@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="ga_test" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/ga_test" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/ga_test" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-std=c++11" />
+			<Add directory="../../../include" />
+		</Compiler>
+		<ResourceCompiler>
+			<Add directory="../../../bin" />
+		</ResourceCompiler>
+		<Unit filename="../../../crossover.cpp" />
+		<Unit filename="../../../dna.cpp" />
+		<Unit filename="../../../engine.cpp" />
+		<Unit filename="../../../include/crossover.hpp" />
+		<Unit filename="../../../include/crossover_type.hpp" />
+		<Unit filename="../../../include/dna.hpp" />
+		<Unit filename="../../../include/engine.hpp" />
+		<Unit filename="../../../include/engine_parameters.hpp" />
+		<Unit filename="../../../include/error.hpp" />
+		<Unit filename="../../../include/goals.hpp" />
+		<Unit filename="../../../include/individual.hpp" />
+		<Unit filename="../../../include/individual_comp.hpp" />
+		<Unit filename="../../../include/mutation.hpp" />
+		<Unit filename="../../../include/openGA.hpp" />
+		<Unit filename="../../../include/population.hpp" />
+		<Unit filename="../../../include/population_parameters.hpp" />
+		<Unit filename="../../../include/rand.hpp" />
+		<Unit filename="../../../include/simulation.hpp" />
+		<Unit filename="../../../include/simulation_parameters.hpp" />
+		<Unit filename="../../../include/single_engine.hpp" />
+		<Unit filename="../../../individual.cpp" />
+		<Unit filename="../../../individual_comp.cpp" />
+		<Unit filename="../../../mutation.cpp" />
+		<Unit filename="../../../population.cpp" />
+		<Unit filename="../../../rand.cpp" />
+		<Unit filename="../../../simulation.cpp" />
+		<Unit filename="../../../single_engine.cpp" />
+		<Unit filename="ga_test.cpp" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

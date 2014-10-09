@@ -32,35 +32,41 @@
 			</Target>
 		</Build>
 		<Compiler>
-			<Add option="-Wall" />
+			<Add directory="../../include" />
 		</Compiler>
-		<Unit filename="crossover.cpp" />
-		<Unit filename="crossover.hpp" />
-		<Unit filename="crossover_type.hpp" />
-		<Unit filename="dna.cpp" />
-		<Unit filename="dna.hpp" />
-		<Unit filename="engine.cpp" />
-		<Unit filename="engine.hpp" />
-		<Unit filename="engine_parameters.hpp" />
-		<Unit filename="error.hpp" />
-		<Unit filename="goals.hpp" />
-		<Unit filename="individual.cpp" />
-		<Unit filename="individual.hpp" />
-		<Unit filename="individual_comp.cpp" />
-		<Unit filename="individual_comp.hpp" />
-		<Unit filename="mutation.cpp" />
-		<Unit filename="mutation.hpp" />
-		<Unit filename="population.cpp" />
-		<Unit filename="population.hpp" />
-		<Unit filename="population_parameters.hpp" />
-		<Unit filename="rand.cpp" />
-		<Unit filename="rand.hpp" />
-		<Unit filename="simulation.cpp" />
-		<Unit filename="simulation.hpp" />
-		<Unit filename="simulation_parameters.hpp" />
-		<Unit filename="single_engine.cpp" />
-		<Unit filename="single_engine.hpp" />
-		<Unit filename="test.cpp" />
+		<ResourceCompiler>
+			<Add directory="../../../openGA" />
+		</ResourceCompiler>
+		<Linker>
+			<Add directory="../../../openGA" />
+		</Linker>
+		<Unit filename="../../crossover.cpp" />
+		<Unit filename="../../dna.cpp" />
+		<Unit filename="../../engine.cpp" />
+		<Unit filename="../../include/crossover.hpp" />
+		<Unit filename="../../include/crossover_type.hpp" />
+		<Unit filename="../../include/dna.hpp" />
+		<Unit filename="../../include/engine.hpp" />
+		<Unit filename="../../include/engine_parameters.hpp" />
+		<Unit filename="../../include/error.hpp" />
+		<Unit filename="../../include/goals.hpp" />
+		<Unit filename="../../include/individual.hpp" />
+		<Unit filename="../../include/individual_comp.hpp" />
+		<Unit filename="../../include/mutation.hpp" />
+		<Unit filename="../../include/population.hpp" />
+		<Unit filename="../../include/population_parameters.hpp" />
+		<Unit filename="../../include/rand.hpp" />
+		<Unit filename="../../include/simulation.hpp" />
+		<Unit filename="../../include/simulation_parameters.hpp" />
+		<Unit filename="../../include/single_engine.hpp" />
+		<Unit filename="../../individual.cpp" />
+		<Unit filename="../../individual_comp.cpp" />
+		<Unit filename="../../mutation.cpp" />
+		<Unit filename="../../population.cpp" />
+		<Unit filename="../../rand.cpp" />
+		<Unit filename="../../simulation.cpp" />
+		<Unit filename="../../single_engine.cpp" />
+		<Unit filename="../../test.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

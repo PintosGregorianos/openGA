@@ -10,6 +10,8 @@ dna population::getIndividualDNA(unsigned short int individual_id) const {
 
 population::~population() {
     deleteIndividuals();
+    if (diverg != nullptr)
+        delete diverg;
 }
 
 population::population() {
@@ -17,10 +19,11 @@ population::population() {
 }
 
 void population::populate(void) {
-    if (!individuals.empty())
-        deleteIndividuals();
-
+    deleteIndividuals();
     individuals.resize(params.population_size);
+    for (size_t i = 0; i < params.population_size; i++) {
+        individuals[i]->my_dna->create(params.dna_dimensions);
+    }
 
     if (diverg != nullptr)
         delete diverg;
@@ -46,6 +49,7 @@ void population::calcDivergence(void) {
 }
 
 void population::deleteIndividuals(void) const {
+    if (!individuals.empty()) return;
     for (std::size_t i = 0; i < params.population_size; i++)
         delete individuals[i];
 }

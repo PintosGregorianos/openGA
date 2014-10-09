@@ -8,7 +8,7 @@ class individual {
         dna *my_dna;
 
     public:
-        individual(unsigned short int dna_dimensions);
+        individual();
         ~individual();
 
     friend class individual_comp;

@@ -1,7 +1,8 @@
 #include "single_engine.hpp"
 
 void single_engine::startEngine(void) {
-    dna_buffer.resize (p_population->params.population_size,dna(p_population->params.dna_dimensions));
+    dna_buffer.resize (p_population->params.population_size);
+    for (size_t i = 0; i < p_population->params.population_size; i++) dna_buffer[i].create(p_population->params.dna_dimensions);
     dna_checked.resize(p_population->params.population_size);
     acc_fitness.resize(p_population->params.population_size+1);
 }
@@ -160,6 +161,8 @@ void single_engine::setFitnessCallback(float(*callback)(dna &)) {
 
 void single_engine::startEngine(population &the_population,simulation &the_simulation) {
     bindEngine(&the_population,&the_simulation);
+
+    startEngine();
 
     p_population->populate();
 }
