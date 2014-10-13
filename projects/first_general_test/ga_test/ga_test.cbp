@@ -29,16 +29,13 @@
 			</Target>
 		</Build>
 		<Compiler>
-			<Add option="-Wall" />
 			<Add option="-std=c++11" />
+			<Add option="-Wall" />
 			<Add directory="../../../include" />
 		</Compiler>
 		<ResourceCompiler>
-			<Add directory="../../../bin" />
+			<Add directory="../../../src" />
 		</ResourceCompiler>
-		<Unit filename="../../../crossover.cpp" />
-		<Unit filename="../../../dna.cpp" />
-		<Unit filename="../../../engine.cpp" />
 		<Unit filename="../../../include/crossover.hpp" />
 		<Unit filename="../../../include/crossover_type.hpp" />
 		<Unit filename="../../../include/dna.hpp" />
@@ -56,13 +53,16 @@
 		<Unit filename="../../../include/simulation.hpp" />
 		<Unit filename="../../../include/simulation_parameters.hpp" />
 		<Unit filename="../../../include/single_engine.hpp" />
-		<Unit filename="../../../individual.cpp" />
-		<Unit filename="../../../individual_comp.cpp" />
-		<Unit filename="../../../mutation.cpp" />
-		<Unit filename="../../../population.cpp" />
-		<Unit filename="../../../rand.cpp" />
-		<Unit filename="../../../simulation.cpp" />
-		<Unit filename="../../../single_engine.cpp" />
+		<Unit filename="../../../src/crossover.cpp" />
+		<Unit filename="../../../src/dna.cpp" />
+		<Unit filename="../../../src/engine.cpp" />
+		<Unit filename="../../../src/individual.cpp" />
+		<Unit filename="../../../src/individual_comp.cpp" />
+		<Unit filename="../../../src/mutation.cpp" />
+		<Unit filename="../../../src/population.cpp" />
+		<Unit filename="../../../src/rand.cpp" />
+		<Unit filename="../../../src/simulation.cpp" />
+		<Unit filename="../../../src/single_engine.cpp" />
 		<Unit filename="ga_test.cpp" />
 		<Extensions>
 			<code_completion />

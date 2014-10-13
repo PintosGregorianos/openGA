@@ -14,7 +14,7 @@ class engine {
 
         void bindEngine(population *the_population,simulation *the_simulation);
 
-        virtual void startEngine(void) = 0;
+        virtual void configEngine(void) = 0;
 
         virtual void makeElitism   (unsigned short int n_elitists) = 0;
 		virtual void makeSelection (unsigned short int selection_start_point) = 0;

@@ -4,6 +4,7 @@
 
 #include "error.hpp"
 
+
 class simulation {
     friend class single_engine;
     protected:
@@ -21,6 +22,7 @@ class simulation {
 		void setMutationScaleFactor  (float scale_factor);
 		void setElitismScaleFactor   (float scale_factor);
 		void setCrossoverType        (crossover_type type);
+		void setSelectionType        (selection_type type);
 
 		float getCrossoverProbability  (void) const;
 		float getMutationProbability   (void) const;
@@ -29,6 +31,7 @@ class simulation {
 		float getMutationScaleFactor   (void) const;
 		float getElitismScaleFactor    (void) const;
 		crossover_type getCrossoverType(void) const;
+		selection_type getSelectionType(void) const;
 
 		void setGoals(unsigned short int goal);
 

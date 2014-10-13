@@ -5,6 +5,7 @@
 #include "rand.hpp"
 #include "crossover.hpp"
 #include "mutation.hpp"
+#include "selection_type.hpp"
 #include <cmath>
 
 class single_engine : public engine {
@@ -14,7 +15,7 @@ class single_engine : public engine {
 
     float (*fitness_callback)(const dna &);
 
-    void startEngine      (void);
+    void configEngine      (void);
     void makeSelection    (unsigned short int selection_start_point);
     void makeElitism      (unsigned short int n_elitists);
     void makeCrossover    (unsigned short int n_cross);
@@ -25,6 +26,6 @@ class single_engine : public engine {
     public:
         void setFitnessCallback(float(*callback)(const dna &));
 
-        void startEngine(population &the_population,simulation &the_simulation);
+        void configEngine(population &the_population,simulation &the_simulation);
         void stepEngine(void);
 };
