@@ -1,9 +1,9 @@
-object Form2: TForm2
+object fmMain: TfmMain
   Left = 0
   Top = 0
-  Caption = 'Form2'
+  Caption = 'openGA Hill CLimb 1D'
   ClientHeight = 433
-  ClientWidth = 729
+  ClientWidth = 547
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -11,8 +11,16 @@ object Form2: TForm2
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  OnCreate = FormCreate
+  OnResize = FormResize
   PixelsPerInch = 96
   TextHeight = 13
+  object imPlot: TImage
+    Left = 8
+    Top = 167
+    Width = 529
+    Height = 258
+  end
   object gbGAConfig: TGroupBox
     Left = 8
     Top = 8
@@ -128,7 +136,7 @@ object Form2: TForm2
         'Two Cut'
         'Cut Splice')
     end
-    object ComboBox1: TComboBox
+    object cbCromType: TComboBox
       Left = 270
       Top = 40
       Width = 121

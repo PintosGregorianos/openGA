@@ -4,7 +4,7 @@
 #pragma hdrstop
 #include <tchar.h>
 //---------------------------------------------------------------------------
-USEFORM("hill_climb_1d_interface.cpp", Form2);
+USEFORM("hill_climb_1d_interface.cpp", fmMain);
 //---------------------------------------------------------------------------
 int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 {
@@ -12,7 +12,7 @@ int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
    {
        Application->Initialize();
        Application->MainFormOnTaskBar = true;
-       Application->CreateForm(__classid(TForm2), &Form2);
+       Application->CreateForm(__classid(TfmMain), &fmMain);
        Application->Run();
    }
    catch (Exception &exception)

@@ -2,14 +2,19 @@
 
 #ifndef hill_climb_1d_interfaceH
 #define hill_climb_1d_interfaceH
+
 //---------------------------------------------------------------------------
+
 #include <System.Classes.hpp>
 #include <Vcl.Controls.hpp>
 #include <Vcl.StdCtrls.hpp>
 #include <Vcl.Forms.hpp>
 #include <Vcl.ExtCtrls.hpp>
+#include "canvas_plot_thread.h"
+
 //---------------------------------------------------------------------------
-class TForm2 : public TForm
+
+class TfmMain : public TForm
 {
 __published:	// IDE-managed Components
    TGroupBox *gbGAConfig;
@@ -24,14 +29,22 @@ __published:	// IDE-managed Components
    TLabel *lbCrossType;
    TComboBox *cbCrossType;
    TLabel *Label1;
-   TComboBox *ComboBox1;
+   TComboBox *cbCromType;
    TButton *Button1;
    TButton *Button2;
+   TImage *imPlot;
+   void __fastcall FormCreate(TObject *Sender);
+   void __fastcall FormResize(TObject *Sender);
 private:	// User declarations
+
+   canvas_plot_thread *plot_t;
+
+   void initialize(void);
+
 public:		// User declarations
-   __fastcall TForm2(TComponent* Owner);
+   __fastcall TfmMain(TComponent* Owner);
 };
 //---------------------------------------------------------------------------
-extern PACKAGE TForm2 *Form2;
+extern PACKAGE TfmMain *fmMain;
 //---------------------------------------------------------------------------
 #endif
