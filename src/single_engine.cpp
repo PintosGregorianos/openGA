@@ -1,6 +1,6 @@
 #include "single_engine.hpp"
 
-void single_engine::startEngine(void) {
+void single_engine::configEngine(void) {
     dna_buffer.resize (p_population->params.population_size);
     for (size_t i = 0; i < p_population->params.population_size; i++) dna_buffer[i].create(p_population->params.dna_dimensions);
     dna_checked.resize(p_population->params.population_size);
@@ -129,14 +129,14 @@ void single_engine::makeSelection(unsigned short int n_elitists) {
             for (size_t i = 0; i <= nmax; i++) acc_fitness[i+1] = acc_fitness[i] + individuals[i]->fitness*individuals[i]->fitness;
             break;
         case(selection_types::roulette::linearScore):
-            for (size_t i = 0; i <= nmax; i++) acc_fitness[i+1] = acc_fitness[i] + (float)i + 1.f;
+            for (size_t i = 0; i <= nmax; i++) acc_fitness[i+1] = acc_fitness[i] + (float)(i + 1);
             break;
         case(selection_types::roulette::expScore):
             for (size_t i = 0; i <= nmax; i++) acc_fitness[i+1] = acc_fitness[i] + (float)((i + 1)*(i + 1));
             break;
         default:
             #ifdef DEBUG_MODE
-                PRINT_ERROR("Don't know the selected selection type");
+                PRINT_ERROR("Single-engine: Don't know the selected selection type");
             #endif // DEBUG_MODE
             break;
     }
@@ -220,7 +220,8 @@ void single_engine::updateIndividuals(void) {
 }
 
 void single_engine::manageGoals(void) {
-    /// metrica talvez nao muito boa, seta o goal quando a divergencia de cada dimensao e menor que a do goal
+    ///GOAL POR DIVERGENCIA
+    // metrica talvez nao muito boa, seta o goal quando a divergencia de cada dimensao e menor que a do goal
     if (p_simulation->params.goal & goals::divergence) {
         p_population->calcDivergence();
         const float *diverg = p_population->getDivergences();
@@ -234,6 +235,7 @@ void single_engine::manageGoals(void) {
         if (yep) p_simulation->achieved_goals |= goals::divergence;
     }
 
+    /// GOAL POR GERAÇÂO
     if (p_simulation->params.goal & goals::generation) {
         if (p_population->gen_counter >= p_simulation->params.gen_goal)
             p_simulation->achieved_goals |= goals::generation;
@@ -244,10 +246,10 @@ void single_engine::setFitnessCallback(float(*callback)(const dna &)) {
     fitness_callback = callback;
 }
 
-void single_engine::startEngine(population &the_population,simulation &the_simulation) {
+void single_engine::configEngine(population &the_population,simulation &the_simulation) {
     bindEngine(&the_population,&the_simulation);
 
-    startEngine();
+    configEngine();
 
     p_population->populate();
 }

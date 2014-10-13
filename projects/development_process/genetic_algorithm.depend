@@ -241,10 +241,10 @@
 	"dna.hpp"
 	"rand.hpp"
 
-1412821787 source:c:\users\gregory\desktop\openga\src\engine.cpp
+1413180355 source:c:\users\gregory\desktop\openga\src\engine.cpp
 	"engine.hpp"
 
-1412821787 c:\users\gregory\desktop\openga\include\engine.hpp
+1413180350 c:\users\gregory\desktop\openga\include\engine.hpp
 	"population.hpp"
 	"simulation.hpp"
 	"engine_parameters.hpp"
@@ -306,10 +306,10 @@
 1413171602 source:c:\users\gregory\desktop\openga\src\simulation.cpp
 	"simulation.hpp"
 
-1412840593 source:c:\users\gregory\desktop\openga\src\single_engine.cpp
+1413180255 source:c:\users\gregory\desktop\openga\src\single_engine.cpp
 	"single_engine.hpp"
 
-1413170718 c:\users\gregory\desktop\openga\include\single_engine.hpp
+1413176428 c:\users\gregory\desktop\openga\include\single_engine.hpp
 	"engine.hpp"
 	"dna.hpp"
 	"rand.hpp"
@@ -318,7 +318,17 @@
 	"selection_type.hpp"
 	<cmath>
 
-1413169979 source:c:\users\gregory\desktop\openga\projects\development_process\main.cpp
+1413174671 source:c:\users\gregory\desktop\openga\projects\development_process\main.cpp
+	"thread_engine.hpp"
 
 1413172578 c:\users\gregory\desktop\openga\include\selection_type.hpp
+
+1413173045 source:c:\users\gregory\desktop\openga\src\thread_engine.cpp
+
+1413180609 c:\users\gregory\desktop\openga\include\thread_engine.hpp
+	<thread>
+	<mutex>
+	"single_engine.hpp"
+	"dna.hpp"
+	"error.hpp"
 
