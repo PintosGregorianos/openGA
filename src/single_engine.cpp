@@ -120,9 +120,27 @@ void single_engine::makeSelection(unsigned short int n_elitists) {
 
     unsigned short int nmax = individuals.size()-n_elitists-1;
 
-    for (size_t i = 0; i <= nmax; i++) {
-        acc_fitness[i+1] = acc_fitness[i] + individuals[i]->fitness;
+    /// talvez dividir em outro método ou classe "selection" ?
+    switch(p_simulation->params.select_type) {
+        case(selection_types::roulette::linearFitness):
+            for (size_t i = 0; i <= nmax; i++) acc_fitness[i+1] = acc_fitness[i] + individuals[i]->fitness;
+            break;
+        case(selection_types::roulette::expFitness):
+            for (size_t i = 0; i <= nmax; i++) acc_fitness[i+1] = acc_fitness[i] + individuals[i]->fitness*individuals[i]->fitness;
+            break;
+        case(selection_types::roulette::linearScore):
+            for (size_t i = 0; i <= nmax; i++) acc_fitness[i+1] = acc_fitness[i] + (float)i + 1.f;
+            break;
+        case(selection_types::roulette::expScore):
+            for (size_t i = 0; i <= nmax; i++) acc_fitness[i+1] = acc_fitness[i] + (float)((i + 1)*(i + 1));
+            break;
+        default:
+            #ifdef DEBUG_MODE
+                PRINT_ERROR("Don't know the selected selection type");
+            #endif // DEBUG_MODE
+            break;
     }
+
 
     size_t n = 0;
     float choise, fitness_sum;

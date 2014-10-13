@@ -83,9 +83,14 @@ void simulation::setGoalGeneration(unsigned short int generation) {
 	}
 }
 
+void simulation::setSelectionType(selection_type type) {
+    params.select_type = type;
+}
+
 void simulation::setCrossoverType(crossover_type type) {
     params.cross_type = type;
 }
+
 
 float simulation::getCrossoverProbability(void) const {
 	return params.cross_prob;
@@ -129,6 +134,10 @@ float simulation::getElitismScaleFactor(void) const {
 
 crossover_type simulation::getCrossoverType(void) const {
     return params.cross_type;
+}
+
+selection_type simulation::getSelectionType(void) const {
+    return params.select_type;
 }
 
 unsigned short int simulation::getAchievedGoals() const {

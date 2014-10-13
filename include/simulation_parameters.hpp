@@ -2,6 +2,7 @@
 
 #include "goals.hpp"
 #include "crossover_type.hpp"
+#include "selection_type.hpp"
 
 struct simulation_parameters {
     float cross_prob,  mutat_prob,  elitism_ratio;
@@ -10,4 +11,5 @@ struct simulation_parameters {
     unsigned short int gen_goal;
     unsigned short int goal;
     crossover_type cross_type;
+    selection_type select_type;
 };

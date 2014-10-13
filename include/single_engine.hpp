@@ -5,6 +5,7 @@
 #include "rand.hpp"
 #include "crossover.hpp"
 #include "mutation.hpp"
+#include "selection_type.hpp"
 #include <cmath>
 
 class single_engine : public engine {
