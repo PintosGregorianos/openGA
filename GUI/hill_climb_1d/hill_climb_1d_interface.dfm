@@ -1,7 +1,7 @@
 object fmMain: TfmMain
   Left = 0
   Top = 0
-  Caption = 'openGA Hill CLimb 1D'
+  Caption = 'openGA Hill Climb 1D'
   ClientHeight = 433
   ClientWidth = 547
   Color = clBtnFace
@@ -11,6 +11,7 @@ object fmMain: TfmMain
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  OnClose = FormClose
   OnCreate = FormCreate
   OnResize = FormResize
   PixelsPerInch = 96
@@ -51,6 +52,7 @@ object fmMain: TfmMain
       EditLabel.Height = 13
       EditLabel.Caption = 'Population Size:'
       TabOrder = 0
+      OnChange = edPopSizeChange
     end
     object edDNASize: TLabeledEdit
       Left = 143
@@ -61,6 +63,7 @@ object fmMain: TfmMain
       EditLabel.Height = 13
       EditLabel.Caption = 'DNA Size:'
       TabOrder = 1
+      OnChange = edDNASizeChange
     end
     object edCrossProb: TLabeledEdit
       Left = 16
@@ -70,7 +73,8 @@ object fmMain: TfmMain
       EditLabel.Width = 106
       EditLabel.Height = 13
       EditLabel.Caption = 'Crossover Probability:'
-      TabOrder = 2
+      TabOrder = 4
+      OnChange = edCrossProbChange
     end
     object edElitimsRatio: TLabeledEdit
       Left = 270
@@ -80,7 +84,8 @@ object fmMain: TfmMain
       EditLabel.Width = 61
       EditLabel.Height = 13
       EditLabel.Caption = 'Elitism Ratio:'
-      TabOrder = 3
+      TabOrder = 5
+      OnChange = edElitimsRatioChange
     end
     object edMutProb: TLabeledEdit
       Left = 143
@@ -90,7 +95,8 @@ object fmMain: TfmMain
       EditLabel.Width = 99
       EditLabel.Height = 13
       EditLabel.Caption = 'Mutation Probability:'
-      TabOrder = 4
+      TabOrder = 6
+      OnChange = edMutProbChange
     end
     object edCrossScale: TLabeledEdit
       Left = 16
@@ -100,7 +106,8 @@ object fmMain: TfmMain
       EditLabel.Width = 115
       EditLabel.Height = 13
       EditLabel.Caption = 'Crossover Scale Factor:'
-      TabOrder = 5
+      TabOrder = 7
+      OnChange = edCrossScaleChange
     end
     object edMutScale: TLabeledEdit
       Left = 143
@@ -110,7 +117,8 @@ object fmMain: TfmMain
       EditLabel.Width = 108
       EditLabel.Height = 13
       EditLabel.Caption = 'Mutation Scale Factor:'
-      TabOrder = 6
+      TabOrder = 8
+      OnChange = edMutScaleChange
     end
     object edElitimsScale: TLabeledEdit
       Left = 270
@@ -120,7 +128,8 @@ object fmMain: TfmMain
       EditLabel.Width = 95
       EditLabel.Height = 13
       EditLabel.Caption = 'Elitism Scale Factor:'
-      TabOrder = 7
+      TabOrder = 9
+      OnChange = edElitimsScaleChange
     end
     object cbCrossType: TComboBox
       Left = 397
@@ -129,8 +138,9 @@ object fmMain: TfmMain
       Height = 21
       Style = csDropDownList
       ItemIndex = 0
-      TabOrder = 8
+      TabOrder = 3
       Text = 'One Cut'
+      OnChange = cbCrossTypeChange
       Items.Strings = (
         'One Cut'
         'Two Cut'
@@ -143,8 +153,9 @@ object fmMain: TfmMain
       Height = 21
       Style = csDropDownList
       ItemIndex = 0
-      TabOrder = 9
+      TabOrder = 2
       Text = 'Byte'
+      OnChange = cbCromTypeChange
       Items.Strings = (
         'Byte'
         'Signed Int'
