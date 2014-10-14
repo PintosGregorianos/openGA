@@ -2,7 +2,7 @@
 
 void randomSpace::construct(void) {
  	my_space.resize(dimensions);
-	for (auto &&x : my_space) x.resize(size);
+	for (auto &x : my_space) x.resize(size);
 }
 
 const float *randomSpace::getDimension(std::size_t dimension) const {
@@ -26,7 +26,7 @@ space randomSpace::getDownscaledSpace(std::size_t downscale_factor) const {
     return temp;
 }
 
-void randomSpace::resize(std::size_t size,std::size_t dimensions) {
+void randomSpace::resize(std::size_t dimensions,std::size_t size) {
 	this->size       = size;
 	this->dimensions = dimensions;
 

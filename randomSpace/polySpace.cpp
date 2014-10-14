@@ -12,7 +12,7 @@ polySpace::polySpace(std::size_t dimensions,std::size_t size,std::size_t order) 
     n_coeffs = order;
     resize(dimensions,size);
     my_coeffs.resize(dimensions);
-    for (auto &x : my_coeffs) x.resize(n_coeffs);
+    for (auto &x : my_coeffs) x.resize(order);
 
     randomizePoly();
     generate();
@@ -20,6 +20,7 @@ polySpace::polySpace(std::size_t dimensions,std::size_t size,std::size_t order) 
 
 void polySpace::setOrder(std::size_t order) {
     n_coeffs = order;
+    for (auto &x : my_coeffs) x.resize(order);
 }
 
 const float *polySpace::getDimensionCoefficients(std::size_t dimension) const {
