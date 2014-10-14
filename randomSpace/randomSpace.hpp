@@ -6,7 +6,7 @@
 using space = std::vector<std::vector<float>/**/>;
 
 class randomSpace {
-	private:
+	protected:
 		 std::size_t size;
 		 std::size_t dimensions;
 
