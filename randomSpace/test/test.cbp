@@ -23,19 +23,28 @@
 				<Compiler>
 					<Add option="-O2" />
 				</Compiler>
-				<Linker>
-					<Add option="-s" />
-				</Linker>
 			</Target>
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
 			<Add option="-std=c++11" />
 			<Add directory="../../randomSpace" />
+			<Add directory="../../include" />
+			<Add directory="../../matlabPlot" />
 		</Compiler>
 		<ResourceCompiler>
 			<Add directory="../test" />
+			<Add directory="../../src" />
+			<Add directory="../../matlabPlot" />
 		</ResourceCompiler>
+		<Unit filename="../../matlabPlot/Figure.cpp" />
+		<Unit filename="../../matlabPlot/Figure.hpp" />
+		<Unit filename="../../matlabPlot/File.cpp" />
+		<Unit filename="../../matlabPlot/File.hpp" />
+		<Unit filename="../../matlabPlot/enums.hpp" />
+		<Unit filename="../../matlabPlot/matPlot.hpp" />
+		<Unit filename="../../src/rand.cpp" />
+		<Unit filename="../polySpace.cpp" />
 		<Unit filename="../polySpace.hpp" />
 		<Unit filename="../randomSpace.cpp" />
 		<Unit filename="../randomSpace.hpp" />

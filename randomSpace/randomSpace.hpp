@@ -23,5 +23,5 @@ class randomSpace {
 
 		space getDownscaledSpace(std::size_t downscale_factor) const;
 
-		virtual void gererate(void) = 0;
+		virtual void generate(void) = 0;
 };

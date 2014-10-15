@@ -1,26 +1,23 @@
 #include <iostream>
 
-#include "randomSpace.hpp"
 #include "polySpace.hpp"
-#include "matlabPlot.hpp"
+#include "matPlot.hpp"
 
-
-const float dado[10]  = {0.f,1.f,2.f,0.f,1.f,2.f,0.f,2.f,4.f,6.f};
-const float dado2[10] = {6.f,3.f,-2.f,0.f,9.f,-1.f,0.f,-2.f,4.f,3.f};
 
 int main() {
+    // Cria espaco 1d com tamanho 256 e polinomio de ordem 13
+    const std::size_t size = 256;
+    polySpace space(1,size,13);
 
-    matlabPlot myplot("teste_matlab");
+    const float *d = space.getDimension(0);
 
-    plotFigure *plot1 = myplot.addFigure(plotTypes::plot,plotColors::red);
-    plot1->setDataX(dado,10);
+    // Gera arquivo de plot
+    matPlot::File file("space_plot");
 
-    plotFigure *plot2 = myplot.addFigure(plotTypes::scatter,plotColors::green);
-    plot2->setDataX(dado,10);
-    plot2->setDataY(dado2,10);
+    matPlot::Figure *fig0 = file.addFigure(matPlot::Types::plot,matPlot::Colors::red);
+    fig0->setDataX(d,size);
 
-    if (!myplot.saveFile())
-        std::cout << "Erro ao salvar o arquivo." << std::endl;
+    file.save();
 
     return 0;
 }
