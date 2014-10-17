@@ -24,7 +24,7 @@ void polySpace::setOrder(std::size_t order) {
 }
 
 const float *polySpace::getDimensionCoefficients(std::size_t dimension) const {
-    return &my_coeffs[dimensions].front();
+    return &my_coeffs[dimension].front();
 }
 
 float polySpace::getCoefficient(std::size_t dimension,std::size_t coefficient) const {
@@ -32,6 +32,8 @@ float polySpace::getCoefficient(std::size_t dimension,std::size_t coefficient) c
 }
 
 void polySpace::generate(void) {
+    randomizePoly();
+
     const float step = 2.f / (float)size;
     for (std::size_t d = 0; d < dimensions; d++) {
         float x = -1.f;
