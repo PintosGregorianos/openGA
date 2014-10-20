@@ -1,9 +1,9 @@
 /*--------------------------------------------------------------------------------------------
-openGA: confiParser
+openGA: configParser
 
     WHAT IS THIS:
-        This file defines the configParser system. It is a multipurpose parser that can
-            be used with any ASCII file. Tha parser can read and write parameters from/to
+        This file defines the configParser system. It is a multi-purpose parser that can
+            be used with any ASCII file. The parser can read and write parameters from/to
             a file or a std::string.
 
     FILE:
@@ -11,13 +11,12 @@ openGA: confiParser
             -----------------------------------------
                 parameter_name1 = value
 
-                # comentary
                 parameter_name2 = value
             ...
             -----------------------------------------
-        Where "paramenter_name" is the name of the paramenter and "value" is the actual stored value.
+        Where "parameter_name" is the name of the parameter and "value" is the actual stored value.
 
-        For use a line as comment start it with a #:
+        For use a line as comment, start it with a #:
         -----------------------------------------
                 parameter_name1 = value
 
@@ -26,7 +25,7 @@ openGA: confiParser
             ...
             -----------------------------------------
 
-        You can OPTIONALY end line with a ; por organizion purpose like:
+        You can OPTIONALY end a line with a ; for organization purpose like:
             -----------------------------------------
                 name = gregory;
             ...
@@ -50,9 +49,9 @@ openGA: confiParser
         void parseFromString(const std::string &data);
         bool parseFromFile  (const std::string &file_name);
 
-        You can parse the file. The fill will be read only at call and the data will be cached and mapped to memory as key => value
+        You can parse the file. The file will be read only at call and the data will be cached and mapped to memory as key => value
 
-        **! All modifications will be cached and not writeen to file in real time.
+        **! All modifications will be cached and not written to the file in real time.
 
 
     USING
@@ -70,9 +69,9 @@ openGA: confiParser
         The parser must already have parsed the file with the methods shown before.
 
         Take care! Is very recommended that you read and write data with consistent types.
-            If you write data as float and read as int or other type you will be fucked by example.
+            If you write data as float and read as int or other type you will be fucked, by example.
 
-        If the key isn't on the cache the variable will not be modified. This can be very powerfull as you can set default values.
+        If the key isn't on the cache the variable will not be modified. This can be very powerful as you can set default values.
             --------------------------------------
                 bool flag = true;
                 my_parser.read("active",flag);
@@ -83,9 +82,9 @@ openGA: confiParser
             float mass = 45.6f;
             my_parser.write("the-mass",mass);
         ------------------------------------------
-            The data will be correctly writed as the write methods have overload for each type of c++ data.
+            The data will be correctly wrote as the write methods have overload for each type of c++ data.
 
-        Bool data will be writed and read as yes/no so, if you write:
+        Bool data will be written and read as yes/no so, if you write:
         ------------------------------------------
             bool test = false;
             my_parse.write("hes_gay",test);
@@ -94,6 +93,8 @@ openGA: confiParser
             -------------------------------------
                 hes_gay = no
             -------------------------------------
+			
+		If the key is already is on cache it's value will be modified. Otherwise the key will be created.
 
     ERASE: To erase a key from the parser cache use:
         ----------------------------------------
@@ -121,7 +122,7 @@ openGA: confiParser
 #include <string>
 #include <sstream>
 
-/* Namespace that contains the parser.
+/* Name space that contains the parser.
     Only for organization purposes.
 */
 namespace configParser {
@@ -135,26 +136,26 @@ namespace configParser {
             // METHODS FOR PARSE AND WRITE FILES
             // Numeric values will be written as numbers, boolean as yes/no and std::string as the actual string.
 
-                // Parse the data from a string. The data need to be formated as in a normal .txt file with /n as break lines.
+                // Parse the data from a string. The data need to be formatted as in a normal .txt file with /n as break lines.
                 void parseFromString(const std::string &data);
 
                 // Writed the cached data to a string.
                 void writeToString  (std::string &data);
 
-                // Parse the data from a file. The parser will parse util a EOF is reach.
-                // All the data will be mapped to memory as key => velue for future use.
+                // Parse the data from a file. The parser will parse until a EOF is reach.
+                // All the data will be mapped to memory as key => value for future use.
                 bool parseFromFile  (const std::string &file_name);
 
                 // Write all the parsed and modified data to a file.
-                // It can be a new file with diferent name of the same as used to get the data.
-                // If the same file is used all the original comments and identation will be lost
+                // It can be a new file with different name of the same as used to get the data.
+                // If the same file is used all the original comments and indentation will be lost
                 // as the parser will write each key => value in each line.
                 bool writeToFile    (const std::string &file_name);
 
             //----------------------------------------------------------------------------------------------------------------
 
-            // METHODS FOR READ KEYS
-            // This are the methods for read data from the cached parsed file. If the key is not avalible on the
+            // METHODS FOR READ DATA
+            // This are the methods for read data from the cached parsed file. If the key is not available on the
             // container the original data of the variable will no be modified.
 
                 // Read a bool. The value of the key need to be at yes/no format.
@@ -173,9 +174,9 @@ namespace configParser {
 
             //---------------------------------------------------------------------------------------------------------------
 
-            // METHODS FOR READ DATA
-            // This are the methods that you can use for write paramenters on the configFile
-            // The paramenter will be stored on cache and written to file only on writeToFile(...) or writeToString(...) call.
+            // METHODS FOR WRITE DATA
+            // This are the methods that you can use for write parameters on the configFile
+            // The parameter will be stored on cache and written to file only on writeToFile(...) or writeToString(...) call.
 
                 // Writes a boolean. The 0 or 1 value will be written as yes/no
                 void write(std::string key, bool                 value);
