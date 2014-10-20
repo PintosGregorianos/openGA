@@ -1,8 +1,0 @@
-bool = yes
-vida = opa
-greg = luiza
-josue = gripeA
-idade = 56
-joao = maria
-amor = 100
-teste = 98.000000

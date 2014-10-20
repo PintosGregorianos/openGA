@@ -1,0 +1,11 @@
+# File for ilustration of the configParser
+
+# PACIENT
+    name          = PintosGregorianos
+    they-are-foda = yes
+
+    how_many      = 2
+
+    # DATE OF CREATION
+        year  = 2014
+        month = 3.1415
