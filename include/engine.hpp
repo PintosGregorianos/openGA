@@ -19,6 +19,6 @@ class engine {
         virtual void makeElitism   (unsigned short int n_elitists) = 0;
 		virtual void makeSelection (unsigned short int selection_start_point) = 0;
 		virtual void makeCrossover (unsigned short int n_cross) = 0;
-		virtual void makeMutation  (unsigned short int n_mutat) = 0;
+        virtual void makeMutation  (unsigned short int n_mutat, unsigned short int start_point) = 0;
         virtual void manageGoals   (void) = 0;
 };

@@ -112,7 +112,7 @@ $(DESTDIR_TARGET): ui_mainwindow.h $(OBJECTS)
 	$(LINKER) $(LFLAGS) -o $(DESTDIR_TARGET) object_script.hill_climb_1d.Release  $(LIBS)
 
 qmake: FORCE
-	@$(QMAKE) -spec win32-g++ -o Makefile.Release hill_climb_1d.pro
+	@$(QMAKE) -spec win32-g++ CONFIG+=debug -o Makefile.Release hill_climb_1d.pro
 
 qmake_all: FORCE
 

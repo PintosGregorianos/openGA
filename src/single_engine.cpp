@@ -50,7 +50,7 @@ void single_engine::stepEngine(void) {
     makeCrossover(n_cross);
 
     // mutação
-    makeMutation (n_mutat);
+    makeMutation (n_mutat, n_elitists);
 
     // atualiza indivíduos com novos DNAs
     updateIndividuals();
@@ -74,14 +74,21 @@ void single_engine::makeCrossover(unsigned short int n_cross) {
     #ifdef DEBUG_MODE
         std::cout << std::endl << "Crossovers:" << std::endl;
     #endif // DEBUG_MODE
+
+    auto &individuals = p_population->individuals;
+
+    crossover cross;
+
     size_t n = 0;
+    size_t n2 = 0;
     size_t id1,id2;
     switch(p_simulation->params.cross_type) {
         case(crossover_type::onePoint):
             while(n++ < n_cross) {
                 id1 = uint_rand()%p_population->params.population_size;
                 id2 = uint_rand()%p_population->params.population_size;
-                crossover::typeA(dna_buffer[id1],dna_buffer[id2]);
+                cross.typeA(dna_buffer[id1],dna_buffer[id2],dna_buffer[n2],dna_buffer[n2+1]);
+                n2+=2;
                 #ifdef DEBUG_MODE
                     std::cout << "\tIndividual " << id1 << " <-> Individual " << id2 << std::endl;
                 #endif // DEBUG_MODE
@@ -91,7 +98,8 @@ void single_engine::makeCrossover(unsigned short int n_cross) {
             while(n++ < n_cross) {
                 id1 = uint_rand()%p_population->params.population_size;
                 id2 = uint_rand()%p_population->params.population_size;
-                crossover::typeB(dna_buffer[id1],dna_buffer[id2]);
+                cross.typeB(dna_buffer[id1],dna_buffer[id2],dna_buffer[n2],dna_buffer[n2+1]);
+                n2+=2;
                 #ifdef DEBUG_MODE
                     std::cout << "\tIndividual " << id1 << " <-> Individual " << id2 << std::endl;
                 #endif // DEBUG_MODE
@@ -101,7 +109,8 @@ void single_engine::makeCrossover(unsigned short int n_cross) {
             while(n++ < n_cross) {
                 id1 = uint_rand()%p_population->params.population_size;
                 id2 = uint_rand()%p_population->params.population_size;
-                crossover::typeC(dna_buffer[id1],dna_buffer[id2]);
+                cross.typeC(dna_buffer[id1],dna_buffer[id2],dna_buffer[n2],dna_buffer[n2+1]);
+                n2+=2;
                 #ifdef DEBUG_MODE
                     std::cout << "\tIndividual " << id1 << " <-> Individual " << id2 << std::endl;
                 #endif // DEBUG_MODE
@@ -118,6 +127,8 @@ void single_engine::makeSelection(unsigned short int n_elitists) {
 
     auto &individuals = p_population->individuals;
 
+    // atenção! nmax vai permitir a seleção de indivíduos que serão sobre escritos pelo
+    // crossover. Definir um ponto final para a seleção.
     unsigned short int nmax = individuals.size()-n_elitists-1;
 
     /// talvez dividir em outro método ou classe "selection" ?
@@ -184,7 +195,7 @@ void single_engine::makeElitism(unsigned short int n_elitists) {
 }
 
 // Apenas implementado o tipo A por enquanto
-void single_engine::makeMutation(unsigned short int n_mutat) {
+void single_engine::makeMutation(unsigned short int n_mutat, unsigned short int start_point) {
     #ifdef DEBUG_MODE
         std::cout << std::endl;
     #endif // DEBUG_MODE
@@ -194,7 +205,7 @@ void single_engine::makeMutation(unsigned short int n_mutat) {
         do {
             selected = uint_rand()%p_population->params.population_size;
         }
-        while(dna_checked[selected]);
+        while(dna_checked[selected] || selected>=p_population->params.population_size-start_point);
         dna_checked[selected] = true;
         mutation::typeA(dna_buffer[selected]);
         #ifdef DEBUG_MODE

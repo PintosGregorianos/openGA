@@ -23,7 +23,7 @@ class single_engine : public engine {
     void makeSelection    (unsigned short int selection_start_point);
     void makeElitism      (unsigned short int n_elitists);
     void makeCrossover    (unsigned short int n_cross);
-    void makeMutation     (unsigned short int n_mutat);
+    void makeMutation     (unsigned short int n_mutat, unsigned short int start_point);
     void updateIndividuals(void);
     void manageGoals      (void);
 

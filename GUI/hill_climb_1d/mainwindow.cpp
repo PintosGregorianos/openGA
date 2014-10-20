@@ -24,6 +24,15 @@ MainWindow::~MainWindow()
 void MainWindow::initialize(void){
    seed_from_time();
 
+   //openGA.setFitnessCallback(&MainWindow::evaluateFitness, this);
+   openGA.setFitnessCallback(MainWindow::staticFitnessCallback, this);
+   //openGA.setFitnessCallback([this](const dna &the_dna) { return this->evaluateFitness(the_dna); });
+
+   openGA.setIterationCallback(MainWindow::staticIterationCallback, this);
+
+   openGA.setGAConfig(loadFile((char*)DEFAULT_FILE_NAME));
+   updateUI();
+
    space=new polySpace((std::size_t)SPACE_DIM, (std::size_t)SPACE_SIZE, (std::size_t)SPACE_ORDER);
    spacePlot=ui->cpSpace;
 
@@ -49,18 +58,9 @@ void MainWindow::initialize(void){
    fitnessPlot->addGraph();
    fitnessPlot->xAxis->setLabel("x");
    fitnessPlot->yAxis->setLabel("Fitness");
-   fitnessPlot->xAxis->setRange(0, SPACE_SIZE);
+   fitnessPlot->xAxis->setRange(0, openGA.getPopulationSize()-1);
    fitnessPlot->yAxis->setRange(-1, 1);
    fitnessPlot->replot();
-
-   //openGA.setFitnessCallback(&MainWindow::evaluateFitness, this);
-   openGA.setFitnessCallback(MainWindow::staticFitnessCallback, this);
-   //openGA.setFitnessCallback([this](const dna &the_dna) { return this->evaluateFitness(the_dna); });
-
-   openGA.setIterationCallback(MainWindow::staticIterationCallback, this);
-
-   openGA.setGAConfig(loadFile((char*)DEFAULT_FILE_NAME));
-   updateUI();
 }
 
 //---------------------------------------------------------------------------
@@ -131,7 +131,7 @@ void MainWindow::iterateGA(void){
    fitnessPlot->graph(0)->setData(xf, y);
    fitnessPlot->replot();
 
-   Sleep(300);
+   Sleep(100);
    openGA.step();
 }
 
@@ -265,6 +265,8 @@ void MainWindow::on_btStart_clicked()
    float y_min=0;
    int i;
 
+   saveFile((char*)DEFAULT_FILE_NAME, openGA.getGAConfig());
+
    space->generate();
    space_y=space->getDimension(0);
 
@@ -280,6 +282,7 @@ void MainWindow::on_btStart_clicked()
    spacePlot->graph(0)->setData(xq, yq);
    spacePlot->replot();
 
+   fitnessPlot->xAxis->setRange(0, openGA.getPopulationSize()-1);
    fitnessPlot->yAxis->setRange(y_min*1.1, y_max*1.1);
    fitnessPlot->replot();
 
