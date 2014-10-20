@@ -95,3 +95,7 @@ unsigned short int population::getDNADimension  (void) const {
 unsigned short int population::getGeneration(void) const {
     return gen_counter;
 }
+
+float population::getIndividualFitness(unsigned short int individual_id) const{
+   return individuals[individual_id]->fitness;
+}

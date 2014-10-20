@@ -4,6 +4,7 @@
 //---------------------------------------------------------------------------
 
 #include <QMainWindow>
+#include "hill_climb_1d.h"
 #include "qcustomplot.h"
 #include "openga_wrapper.h"
 #include "polySpace.hpp"
@@ -15,7 +16,7 @@
 
 #define SPACE_DIM                   1
 #define SPACE_SIZE                  256
-#define SPACE_ORDER                 32
+#define SPACE_ORDER                 6
 
 //---------------------------------------------------------------------------
 
@@ -65,8 +66,25 @@ private:
 
     polySpace *space;
 
+    const float *space_y;
+
     void initialize(void);
     void updateUI(void);
+
+    //static function pointer connections
+    //C++ callbaks are awkward
+    static float staticFitnessCallback(void *p, const dna &the_dna){
+       // Get back into the class by treating p as the "this" pointer.
+       return ((MainWindow *)p)->evaluateFitness(the_dna);
+    }
+
+    static void staticIterationCallback(void *p){
+       // Get back into the class by treating p as the "this" pointer.
+       ((MainWindow *)p)->iterateGA();
+    }
+
+    float evaluateFitness(const dna &the_dna);
+    void iterateGA(void);
 
     ga_config loadFile(char *filename);
     void saveFile(char *filename, ga_config config);

@@ -8,12 +8,16 @@
 #include "selection_type.hpp"
 #include <cmath>
 
+typedef float(*FitnessCallbackPtr)(void*, const dna &);
+
 class single_engine : public engine {
     std::vector<dna>  dna_buffer;
     std::vector<bool> dna_checked;
     std::vector<float>acc_fitness;
 
-    float (*fitness_callback)(const dna &);
+    //float (*fitness_callback)(const dna &);
+    FitnessCallbackPtr fitness_callback;
+    void *fitness_inst_callback;
 
     void configEngine      (void);
     void makeSelection    (unsigned short int selection_start_point);
@@ -24,7 +28,8 @@ class single_engine : public engine {
     void manageGoals      (void);
 
     public:
-        void setFitnessCallback(float(*callback)(const dna &));
+        //void setFitnessCallback(float(*callback)(const dna &));
+        void setFitnessCallback(FitnessCallbackPtr function_ptr, void *instance_ptr);
 
         void configEngine(population &the_population,simulation &the_simulation);
         void stepEngine(void);

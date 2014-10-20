@@ -1,6 +1,6 @@
 #pragma once
 
-#define DEBUG_MODE
+//#define DEBUG_MODE
 
 #include "error.hpp"
 
@@ -50,7 +50,7 @@ class population {
 		void updateAllFitness       (float fitness);
 		void resetFitness           (void);
 
-		float              getindividualFitness(unsigned short int individual_id) const;
+        float              getIndividualFitness(unsigned short int individual_id) const;
 		std::vector<float> getPopulationFitness(void) const;
 
 		unsigned short int getGeneration(void) const;

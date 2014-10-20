@@ -5,7 +5,7 @@
 
 //---------------------------------------------------------------------------
 
-#include "crossover_type.hpp"
+#include "openGA.hpp"
 
 //---------------------------------------------------------------------------
 
@@ -30,6 +30,8 @@ struct ga_config{
    float mutation_scale;
    float elitism_scale;
 };
+
+typedef void(*IterationCallbackPtr)(void*);
 
 //---------------------------------------------------------------------------
 
@@ -63,12 +65,29 @@ class openga_wrapper{
       float getElitismScaleFactor(void);
       crossover_type getCrossoverType(void);
 
+      //config
       void setGAConfig(ga_config cfg);
       ga_config getGAConfig(void);
 
+      //callbacks
+      void setFitnessCallback(FitnessCallbackPtr cb, void *p);
+      void setIterationCallback(IterationCallbackPtr cb, void *p);
+
+      void start(void);
+
+      float getChromossomeAsReal(unsigned short int individual_index, unsigned short int chrom_index);
+      float getIndividualFitness(unsigned short int individual_index);
+
    private:
 
+      IterationCallbackPtr iteration_callback;
+      void *iteration_inst_callback;
+
       ga_config config;
+
+      simulation sim;
+      population pop;
+      single_engine eng;
 };
 
 //---------------------------------------------------------------------------

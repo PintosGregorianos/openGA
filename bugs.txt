@@ -1,0 +1,2 @@
+
+- single_engine.cpp: linha 155: quando os membros de acc_fitness são zeros (fitness sempre zero) ocorre underflow do selector

@@ -22,7 +22,7 @@ void single_engine::stepEngine(void) {
     // Cálcula fitness pra cada indivíduo
     if (fitness_callback != nullptr) {
         for (size_t i = 0; i < p_population->params.population_size; i++) {
-            p_population->individuals[i]->fitness = fitness_callback(*p_population->individuals[i]->my_dna);
+            p_population->individuals[i]->fitness = fitness_callback(fitness_inst_callback, *p_population->individuals[i]->my_dna);
         }
     }
     else {
@@ -143,16 +143,16 @@ void single_engine::makeSelection(unsigned short int n_elitists) {
 
 
     size_t n = 0;
-    float choise, fitness_sum;
+    float choice, fitness_sum;
     size_t selector;
     fitness_sum = acc_fitness[nmax+1];
     #ifdef DEBUG_MODE
         std::cout << "\nIndividuals fitness from natural selection: \n";
     #endif // DEBUG_MODE
     while (n <= nmax) {
-        choise   = real_rand()*fitness_sum;
+        choice   = real_rand()*fitness_sum;
         selector = nmax+1;
-        while(choise <= acc_fitness[selector]) selector--;
+        while(choice <= acc_fitness[selector]) selector--;
         #ifdef DEBUG_MODE
             std::cout << "\t Individual " << n << ": " << individuals[selector]->fitness << std::endl;
         #endif // DEBUG_MODE
@@ -242,8 +242,10 @@ void single_engine::manageGoals(void) {
     }
 }
 
-void single_engine::setFitnessCallback(float(*callback)(const dna &)) {
-    fitness_callback = callback;
+//void single_engine::setFitnessCallback(float(*callback)(const dna &)) {
+void single_engine::setFitnessCallback(FitnessCallbackPtr function_ptr, void *instance_ptr){
+    fitness_callback = function_ptr;
+    fitness_inst_callback = instance_ptr;
 }
 
 void single_engine::configEngine(population &the_population,simulation &the_simulation) {

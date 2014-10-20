@@ -29,13 +29,22 @@ void MainWindow::initialize(void){
 
    // create graph and assign data to it:
    spacePlot->addGraph();
+   spacePlot->addGraph();
+   spacePlot->graph(1)->scatterStyle();
    // give the axes some labels:
    spacePlot->xAxis->setLabel("x");
    spacePlot->yAxis->setLabel("y");
    // set axes ranges, so we see all data:
    spacePlot->xAxis->setRange(0, SPACE_SIZE);
+   spacePlot->xAxis->setRange(1, SPACE_SIZE);
    spacePlot->yAxis->setRange(-1, 1);
    spacePlot->replot();
+
+   //openGA.setFitnessCallback(&MainWindow::evaluateFitness, this);
+   openGA.setFitnessCallback(MainWindow::staticFitnessCallback, this);
+   //openGA.setFitnessCallback([this](const dna &the_dna) { return this->evaluateFitness(the_dna); });
+
+   openGA.setIterationCallback(MainWindow::staticIterationCallback, this);
 
    openGA.setGAConfig(loadFile((char*)DEFAULT_FILE_NAME));
    updateUI();
@@ -73,6 +82,32 @@ void MainWindow::updateUI(void){
    ui->edCrossScale->setText(QString::number(openGA.getCrossoverScaleFactor()));
    ui->edMutScale->setText(QString::number(openGA.getMutationScaleFactor()));
    ui->edElitimsScale->setText(QString::number(openGA.getElitismScaleFactor()));
+}
+
+//---------------------------------------------------------------------------
+
+float MainWindow::evaluateFitness(const dna &the_dna){
+   std::size_t index;
+
+   index=(std::size_t)round(the_dna.getChromossomeAsReal(0)*(SPACE_SIZE-1));
+   return space_y[index];
+}
+
+//---------------------------------------------------------------------------
+
+void MainWindow::iterateGA(void){
+   int i;
+   QVector<double> x(SPACE_SIZE);
+   QVector<double> y(SPACE_SIZE);
+
+   for (i=0; i<openGA.getPopulationSize(); i++){
+      x[i]=round(openGA.getChromossomeAsReal(i, 0)*(SPACE_SIZE-1));
+      y[i]=openGA.getIndividualFitness(i);
+   }
+
+   //spacePlot->yAxis->setRange(y_min, y_max);
+   spacePlot->graph(1)->setData(x, y);
+   spacePlot->replot();
 }
 
 //---------------------------------------------------------------------------
@@ -201,27 +236,26 @@ void MainWindow::on_btStart_clicked()
 {
    QVector<double> xq(SPACE_SIZE);
    QVector<double> yq(SPACE_SIZE);
-   const float *y;
    float y_max=0;
    float y_min=0;
    int i;
 
    space->generate();
-   y=space->getDimension(0);
-
-   //MyQvector = QVector::fromStdVector( MyStedVector );
+   space_y=space->getDimension(0);
 
    for (i=0; i<SPACE_SIZE-1; i++)
    {
-     xq[i]=i;
-     yq[i]=y[i];
-     y_max=std::max(y_max, y[i]);
-     y_min=std::min(y_min, y[i]);
+      xq[i]=i;
+      yq[i]=space_y[i];
+      y_max=std::max(y_max, space_y[i]);
+      y_min=std::min(y_min, space_y[i]);
    }
 
    spacePlot->yAxis->setRange(y_min, y_max);
    spacePlot->graph(0)->setData(xq, yq);
    spacePlot->replot();
+
+   openGA.start();
 }
 
 //---------------------------------------------------------------------------
