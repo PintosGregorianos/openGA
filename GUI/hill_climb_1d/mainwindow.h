@@ -5,6 +5,7 @@
 
 #include <QMainWindow>
 #include <windows.h>
+#include <stdlib.h>
 #include "hill_climb_1d.h"
 #include "qcustomplot.h"
 #include "openga_wrapper.h"
@@ -16,8 +17,8 @@
 //const wchar_t DEFAULT_FILE_NAME[]=L"default.dat";
 
 #define SPACE_DIM                   1
-#define SPACE_SIZE                  256
-#define SPACE_ORDER                 8
+#define SPACE_SIZE                  2048
+#define SPACE_ORDER                 16
 
 //---------------------------------------------------------------------------
 
@@ -70,7 +71,7 @@ private:
 
     polySpace *space;
 
-    const float *space_y;
+    float *space_y;
 
     void initialize(void);
     void updateUI(void);

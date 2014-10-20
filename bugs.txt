@@ -1,2 +1,4 @@
 
 - single_engine.cpp: linha 155: quando os membros de acc_fitness são zeros (fitness sempre zero) ocorre underflow do selector
+
+- polySpace: o número de coefs é igual a ordem do poly, sendo que o número de coefs deveria ser ordem+1

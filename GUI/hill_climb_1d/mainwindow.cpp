@@ -268,10 +268,11 @@ void MainWindow::on_btStart_clicked()
    saveFile((char*)DEFAULT_FILE_NAME, openGA.getGAConfig());
 
    space->generate();
-   space_y=space->getDimension(0);
+   space_y=(float*)space->getDimension(0);
 
    for (i=0; i<SPACE_SIZE-1; i++)
    {
+      space_y[i]=std::abs(space_y[i]);
       xq[i]=i;
       yq[i]=space_y[i];
       y_max=std::max(y_max, space_y[i]);
