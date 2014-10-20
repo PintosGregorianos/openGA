@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>629</width>
-    <height>451</height>
+    <height>656</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -341,7 +341,17 @@
       <x>10</x>
       <y>190</y>
       <width>611</width>
-      <height>251</height>
+      <height>211</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QCustomPlot" name="cpFitness" native="true">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>410</y>
+      <width>611</width>
+      <height>211</height>
      </rect>
     </property>
    </widget>

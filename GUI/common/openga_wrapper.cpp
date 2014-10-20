@@ -6,7 +6,7 @@
 
 openga_wrapper::openga_wrapper(){
    //ver com o gregório
-   sim.setGoalGeneration(25);
+   sim.setGoalGeneration(1000);
    sim.setGoals(goals::generation);
    sim.setSelectionType(selection_types::roulette::linearFitness);
 }
@@ -175,10 +175,27 @@ void openga_wrapper::setIterationCallback(IterationCallbackPtr cb, void *p){
 void openga_wrapper::start(void){
    eng.configEngine(pop, sim);
 
-   while(sim.getAchievedGoals()!=goals::generation){
+   /*while(sim.getAchievedGoals()!=goals::generation){
+      eng.stepEngine();
+      iteration_callback(iteration_inst_callback);
+   }*/
+   running=true;
+   step();
+}
+
+//---------------------------------------------------------------------------
+
+void openga_wrapper::step(void){
+   if (running){
       eng.stepEngine();
       iteration_callback(iteration_inst_callback);
    }
+}
+
+//---------------------------------------------------------------------------
+
+void openga_wrapper::stop(void){
+   running=false;
 }
 
 //---------------------------------------------------------------------------

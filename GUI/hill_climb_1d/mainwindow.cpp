@@ -30,15 +30,28 @@ void MainWindow::initialize(void){
    // create graph and assign data to it:
    spacePlot->addGraph();
    spacePlot->addGraph();
-   spacePlot->graph(1)->scatterStyle();
+
+   spacePlot->graph(1)->setPen(QPen(Qt::red));
+   spacePlot->graph(1)->setLineStyle(QCPGraph::lsNone);
+   spacePlot->graph(1)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCross, 4));
+
    // give the axes some labels:
    spacePlot->xAxis->setLabel("x");
    spacePlot->yAxis->setLabel("y");
+
    // set axes ranges, so we see all data:
    spacePlot->xAxis->setRange(0, SPACE_SIZE);
    spacePlot->xAxis->setRange(1, SPACE_SIZE);
    spacePlot->yAxis->setRange(-1, 1);
    spacePlot->replot();
+
+   fitnessPlot=ui->cpFitness;
+   fitnessPlot->addGraph();
+   fitnessPlot->xAxis->setLabel("x");
+   fitnessPlot->yAxis->setLabel("Fitness");
+   fitnessPlot->xAxis->setRange(0, SPACE_SIZE);
+   fitnessPlot->yAxis->setRange(-1, 1);
+   fitnessPlot->replot();
 
    //openGA.setFitnessCallback(&MainWindow::evaluateFitness, this);
    openGA.setFitnessCallback(MainWindow::staticFitnessCallback, this);
@@ -96,18 +109,30 @@ float MainWindow::evaluateFitness(const dna &the_dna){
 //---------------------------------------------------------------------------
 
 void MainWindow::iterateGA(void){
-   int i;
+   unsigned int i;
+   std::size_t index;
    QVector<double> x(SPACE_SIZE);
    QVector<double> y(SPACE_SIZE);
+   QVector<double> xf(SPACE_SIZE);
 
    for (i=0; i<openGA.getPopulationSize(); i++){
-      x[i]=round(openGA.getChromossomeAsReal(i, 0)*(SPACE_SIZE-1));
-      y[i]=openGA.getIndividualFitness(i);
+      //x[i]=round(openGA.getChromossomeAsReal(i, 0)*(SPACE_SIZE-1));
+      index=round(openGA.getChromossomeAsReal(i, 0)*(SPACE_SIZE-1));
+      x[i]=index;
+      //y[i]=openGA.getIndividualFitness(i);
+      y[i]=space_y[index];
+      xf[i]=i;
    }
 
    //spacePlot->yAxis->setRange(y_min, y_max);
    spacePlot->graph(1)->setData(x, y);
    spacePlot->replot();
+
+   fitnessPlot->graph(0)->setData(xf, y);
+   fitnessPlot->replot();
+
+   Sleep(300);
+   openGA.step();
 }
 
 //---------------------------------------------------------------------------
@@ -251,11 +276,19 @@ void MainWindow::on_btStart_clicked()
       y_min=std::min(y_min, space_y[i]);
    }
 
-   spacePlot->yAxis->setRange(y_min, y_max);
+   spacePlot->yAxis->setRange(y_min*1.1, y_max*1.1);
    spacePlot->graph(0)->setData(xq, yq);
    spacePlot->replot();
+
+   fitnessPlot->yAxis->setRange(y_min*1.1, y_max*1.1);
+   fitnessPlot->replot();
 
    openGA.start();
 }
 
 //---------------------------------------------------------------------------
+
+void MainWindow::on_btStop_clicked()
+{
+   openGA.stop();
+}

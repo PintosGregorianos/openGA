@@ -74,6 +74,8 @@ class openga_wrapper{
       void setIterationCallback(IterationCallbackPtr cb, void *p);
 
       void start(void);
+      void step(void);
+      void stop(void);
 
       float getChromossomeAsReal(unsigned short int individual_index, unsigned short int chrom_index);
       float getIndividualFitness(unsigned short int individual_index);
@@ -88,6 +90,8 @@ class openga_wrapper{
       simulation sim;
       population pop;
       single_engine eng;
+
+      bool running;
 };
 
 //---------------------------------------------------------------------------

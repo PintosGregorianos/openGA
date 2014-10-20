@@ -4,6 +4,7 @@
 //---------------------------------------------------------------------------
 
 #include <QMainWindow>
+#include <windows.h>
 #include "hill_climb_1d.h"
 #include "qcustomplot.h"
 #include "openga_wrapper.h"
@@ -16,7 +17,7 @@
 
 #define SPACE_DIM                   1
 #define SPACE_SIZE                  256
-#define SPACE_ORDER                 6
+#define SPACE_ORDER                 8
 
 //---------------------------------------------------------------------------
 
@@ -57,10 +58,13 @@ private slots:
 
     void on_btStart_clicked();
 
+    void on_btStop_clicked();
+
 private:
     Ui::MainWindow *ui;
 
     QCustomPlot *spacePlot;
+    QCustomPlot *fitnessPlot;
 
     openga_wrapper openGA;
 

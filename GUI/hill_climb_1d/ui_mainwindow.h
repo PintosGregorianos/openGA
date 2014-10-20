@@ -54,13 +54,14 @@ public:
     QLabel *label_9;
     QLabel *label_10;
     QCustomPlot *cpSpace;
+    QCustomPlot *cpFitness;
     QMenuBar *menuBar;
 
     void setupUi(QMainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(629, 451);
+        MainWindow->resize(629, 656);
         QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -140,7 +141,10 @@ public:
         label_10->setGeometry(QRect(310, 70, 61, 16));
         cpSpace = new QCustomPlot(centralWidget);
         cpSpace->setObjectName(QStringLiteral("cpSpace"));
-        cpSpace->setGeometry(QRect(10, 190, 611, 251));
+        cpSpace->setGeometry(QRect(10, 190, 611, 211));
+        cpFitness = new QCustomPlot(centralWidget);
+        cpFitness->setObjectName(QStringLiteral("cpFitness"));
+        cpFitness->setGeometry(QRect(10, 410, 611, 211));
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
