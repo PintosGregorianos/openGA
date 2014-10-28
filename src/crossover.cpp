@@ -97,13 +97,17 @@ void crossover::cross(dna &first, dna &second, unsigned int mask){
 //---------------------------------------------------------------------------
 
 void crossover::cross(dna &dad, dna &mom, unsigned int mask, dna &son, dna &doughter){
-    unsigned int i; //gregório, como faço isso com iteradores?
+    //unsigned int i=0; //gregório, como faço isso com iteradores?
     auto b = mom.chromossomes.begin();
-    for (auto a = dad.chromossomes.begin(); a != dad.chromossomes.end(); a++,b++) {
+    auto c = son.chromossomes.begin();
+    auto d = doughter.chromossomes.begin();
+    for (auto a = dad.chromossomes.begin(); a != dad.chromossomes.end(); a++,b++,c++,d++) {
         //temp = *a;
-        son.setChromossome(i, (*b & mask) | (*a & ~mask));
-        doughter.setChromossome(i, (*a & mask) | (*b & ~mask));
-        i++;
+        //son.setChromossome(i, (*b & mask) | (*a & ~mask));
+        *c = (*b & mask) | (*a & ~mask);
+        //doughter.setChromossome(i, (*a & mask) | (*b & ~mask));
+        *d = (*a & mask) | (*b & ~mask);
+        //i++;
     }
 }
 

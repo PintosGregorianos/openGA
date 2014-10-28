@@ -159,15 +159,16 @@ ga_config openga_wrapper::getGAConfig(void){
 
 //---------------------------------------------------------------------------
 
-void openga_wrapper::setFitnessCallback(FitnessCallbackPtr cb, void *p){
-   eng.setFitnessCallback(cb, p);
+void openga_wrapper::setFitnessCallback(FitnessCallbackPtr callback){
+   //eng.setFitnessCallback(cb, p);
+   eng.setFitnessCallback(callback);
 }
 
 //---------------------------------------------------------------------------
 
-void openga_wrapper::setIterationCallback(IterationCallbackPtr cb, void *p){
-   iteration_callback=cb;
-   iteration_inst_callback=p;
+void openga_wrapper::setIterationCallback(IterationCallbackPtr callback){
+   iteration_callback=callback;
+   //iteration_inst_callback=p;
 }
 
 //---------------------------------------------------------------------------
@@ -188,7 +189,8 @@ void openga_wrapper::start(void){
 void openga_wrapper::step(void){
    if (running){
       eng.stepEngine();
-      iteration_callback(iteration_inst_callback);
+      //iteration_callback(iteration_inst_callback);
+      iteration_callback();
    }
 }
 

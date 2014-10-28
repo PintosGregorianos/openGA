@@ -5,6 +5,7 @@
 
 //---------------------------------------------------------------------------
 
+#include <functional>
 #include "openGA.hpp"
 
 //---------------------------------------------------------------------------
@@ -31,7 +32,7 @@ struct ga_config{
    float elitism_scale;
 };
 
-typedef void(*IterationCallbackPtr)(void*);
+using IterationCallbackPtr = std::function<void(void)>;
 
 //---------------------------------------------------------------------------
 
@@ -70,8 +71,8 @@ class openga_wrapper{
       ga_config getGAConfig(void);
 
       //callbacks
-      void setFitnessCallback(FitnessCallbackPtr cb, void *p);
-      void setIterationCallback(IterationCallbackPtr cb, void *p);
+      void setFitnessCallback(FitnessCallbackPtr callback);
+      void setIterationCallback(IterationCallbackPtr callback);
 
       void start(void);
       void step(void);
@@ -83,7 +84,6 @@ class openga_wrapper{
    private:
 
       IterationCallbackPtr iteration_callback;
-      void *iteration_inst_callback;
 
       ga_config config;
 

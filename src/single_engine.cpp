@@ -19,10 +19,10 @@ void single_engine::stepEngine(void) {
     n_cross    = round((float)p_population->params.population_size*p_simulation->params.cross_prob);
     n_mutat    = round((float)p_population->params.population_size*p_simulation->params.mutat_prob);
 
-    // Cálcula fitness pra cada indivíduo
+    // Cï¿½lcula fitness pra cada indivï¿½duo
     if (fitness_callback != nullptr) {
         for (size_t i = 0; i < p_population->params.population_size; i++) {
-            p_population->individuals[i]->fitness = fitness_callback(fitness_inst_callback, *p_population->individuals[i]->my_dna);
+            p_population->individuals[i]->fitness = fitness_callback(*p_population->individuals[i]->my_dna);
         }
     }
     else {
@@ -42,17 +42,17 @@ void single_engine::stepEngine(void) {
     #endif
     ///---------------------------------------------------------------------------------
 
-    // seleção natural
+    // seleï¿½ï¿½o natural
     makeElitism  (n_elitists);
     makeSelection(n_elitists);
 
     // crossover
     makeCrossover(n_cross);
 
-    // mutação
+    // mutaï¿½ï¿½o
     makeMutation (n_mutat, n_elitists);
 
-    // atualiza indivíduos com novos DNAs
+    // atualiza indivï¿½duos com novos DNAs
     updateIndividuals();
 
     // evolui populacao
@@ -61,14 +61,14 @@ void single_engine::stepEngine(void) {
     // verifica goals. se necessario calcula divergenceia
     manageGoals();
 
-    // atualiza parâmetros conforme fatores de escala
+    // atualiza parï¿½metros conforme fatores de escala
     p_simulation->params.cross_prob    *= p_simulation->params.cross_scale;
     p_simulation->params.mutat_prob    *= p_simulation->params.mutat_scale;
     p_simulation->params.elitism_ratio *= p_simulation->params.elitism_scale;
 }
 
-// cuidado, método erótico e sensual.
-// para o correto crossover não use camisinha
+// cuidado, mï¿½todo erï¿½tico e sensual.
+// para o correto crossover nï¿½o use camisinha
 void single_engine::makeCrossover(unsigned short int n_cross) {
     if (!n_cross) return;
     #ifdef DEBUG_MODE
@@ -127,11 +127,11 @@ void single_engine::makeSelection(unsigned short int n_elitists) {
 
     auto &individuals = p_population->individuals;
 
-    // atenção! nmax vai permitir a seleção de indivíduos que serão sobre escritos pelo
-    // crossover. Definir um ponto final para a seleção.
+    // atenï¿½ï¿½o! nmax vai permitir a seleï¿½ï¿½o de indivï¿½duos que serï¿½o sobre escritos pelo
+    // crossover. Definir um ponto final para a seleï¿½ï¿½o.
     unsigned short int nmax = individuals.size()-n_elitists-1;
 
-    /// talvez dividir em outro método ou classe "selection" ?
+    /// talvez dividir em outro mï¿½todo ou classe "selection" ?
     switch(p_simulation->params.select_type) {
         case(selection_types::roulette::linearFitness):
             for (size_t i = 0; i <= nmax; i++) acc_fitness[i+1] = acc_fitness[i] + individuals[i]->fitness;
@@ -195,7 +195,7 @@ void single_engine::makeElitism(unsigned short int n_elitists) {
 }
 
 // Apenas implementado o tipo A por enquanto
-void single_engine::makeMutation(unsigned short int n_mutat, unsigned short int start_point) {
+void single_engine::makeMutation(unsigned short int n_mutat, unsigned short int elite_reject_point) {
     #ifdef DEBUG_MODE
         std::cout << std::endl;
     #endif // DEBUG_MODE
@@ -205,7 +205,7 @@ void single_engine::makeMutation(unsigned short int n_mutat, unsigned short int 
         do {
             selected = uint_rand()%p_population->params.population_size;
         }
-        while(dna_checked[selected] || selected>=p_population->params.population_size-start_point);
+        while(dna_checked[selected] || selected>=p_population->params.population_size-elite_reject_point);
         dna_checked[selected] = true;
         mutation::typeA(dna_buffer[selected]);
         #ifdef DEBUG_MODE
@@ -223,7 +223,7 @@ void single_engine::makeMutation(unsigned short int n_mutat, unsigned short int 
 // Quem vai fazer?
 // - girando a roleta do silvio santos
 // FATAL ERROR
-// é, vai ser o pinto
+// ï¿½, vai ser o pinto
 void single_engine::updateIndividuals(void) {
     for (size_t i = 0; i < p_population->params.population_size; i++) {
         *p_population->individuals[i]->my_dna = dna_buffer[i];
@@ -246,7 +246,7 @@ void single_engine::manageGoals(void) {
         if (yep) p_simulation->achieved_goals |= goals::divergence;
     }
 
-    /// GOAL POR GERAÇÂO
+    /// GOAL POR GERAï¿½ï¿½O
     if (p_simulation->params.goal & goals::generation) {
         if (p_population->gen_counter >= p_simulation->params.gen_goal)
             p_simulation->achieved_goals |= goals::generation;
@@ -254,9 +254,9 @@ void single_engine::manageGoals(void) {
 }
 
 //void single_engine::setFitnessCallback(float(*callback)(const dna &)) {
-void single_engine::setFitnessCallback(FitnessCallbackPtr function_ptr, void *instance_ptr){
-    fitness_callback = function_ptr;
-    fitness_inst_callback = instance_ptr;
+void single_engine::setFitnessCallback(FitnessCallbackPtr callback){
+    fitness_callback = callback;
+    //fitness_inst_callback = instance_ptr;
 }
 
 void single_engine::configEngine(population &the_population,simulation &the_simulation) {

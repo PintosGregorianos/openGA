@@ -24,11 +24,11 @@ MainWindow::~MainWindow()
 void MainWindow::initialize(void){
    seed_from_time();
 
-   //openGA.setFitnessCallback(&MainWindow::evaluateFitness, this);
-   openGA.setFitnessCallback(MainWindow::staticFitnessCallback, this);
-   //openGA.setFitnessCallback([this](const dna &the_dna) { return this->evaluateFitness(the_dna); });
+   //openGA.setFitnessCallback(MainWindow::staticFitnessCallback, this);
+   openGA.setFitnessCallback(std::bind(&MainWindow::evaluateFitness, this, std::placeholders::_1));
 
-   openGA.setIterationCallback(MainWindow::staticIterationCallback, this);
+   //openGA.setIterationCallback(MainWindow::staticIterationCallback, this);
+   openGA.setIterationCallback(std::bind(&MainWindow::iterateGA, this));
 
    openGA.setGAConfig(loadFile((char*)DEFAULT_FILE_NAME));
    updateUI();

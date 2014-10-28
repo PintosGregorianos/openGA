@@ -76,18 +76,6 @@ private:
     void initialize(void);
     void updateUI(void);
 
-    //static function pointer connections
-    //C++ callbaks are awkward
-    static float staticFitnessCallback(void *p, const dna &the_dna){
-       // Get back into the class by treating p as the "this" pointer.
-       return ((MainWindow *)p)->evaluateFitness(the_dna);
-    }
-
-    static void staticIterationCallback(void *p){
-       // Get back into the class by treating p as the "this" pointer.
-       ((MainWindow *)p)->iterateGA();
-    }
-
     float evaluateFitness(const dna &the_dna);
     void iterateGA(void);
 
