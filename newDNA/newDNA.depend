@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1414713787 source:/Users/gregoroy/Documents/Programacao/openGA/newDNA/DNA.cpp
+	<iostream>
+	"DNA.hpp"
+
+1414714960 /Users/gregoroy/Documents/Programacao/openGA/newDNA/DNA.hpp
+	<vector>
+	<random>
+	<array>
+	<limits>
+
